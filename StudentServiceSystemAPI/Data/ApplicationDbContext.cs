@@ -5,9 +5,7 @@ namespace StudentServiceSystemAPI.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-        }
+        private readonly string _connectionString = "Server=(localdb)\\mssqllocaldb;Database=StudentService;Trusted_Connection=True;";
 
         public DbSet<Department> Departments { get; set; }
         public DbSet<Group> Groups { get; set; }
@@ -15,9 +13,16 @@ namespace StudentServiceSystemAPI.Data
         public DbSet<Mark> Marks { get; set; }
         public DbSet<Subject> Subjects { get; set; }
 
+        public DbSet<Teacher> Teachers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Department>().Ignore(t => t.Groups);
+
+            modelBuilder.Entity<Group>()
+                .HasOne(s => s.Schedule)
+                .WithOne(g => g.Group)
+                .HasForeignKey<Schedule>(s => s.GroupId);
 
             modelBuilder.Entity<Group>().HasOne(d => d.Department).WithMany(g => g.Groups).HasForeignKey(d => d.DepartmentId);
 
@@ -34,6 +39,11 @@ namespace StudentServiceSystemAPI.Data
             modelBuilder.Entity<Subject>().Ignore(t => t.Marks);
 
             Initialize(modelBuilder);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(_connectionString);
         }
 
         public static void Initialize(ModelBuilder modelBuilder)
@@ -117,63 +127,63 @@ namespace StudentServiceSystemAPI.Data
                 );
 
 
-            modelBuilder.Entity<Subject>().HasData(
+            //modelBuilder.Entity<Subject>().HasData(
 
-                new Subject
-                {
-                    SubjectId = 1,
-                    Description = "Biology subject",
-                    Name = "Biology"
-                },
-                new Subject
-                {
-                    SubjectId = 2,
-                    Description = "Math subject",
-                    Name = "Math"
-                },
-                new Subject
-                {
-                    SubjectId = 3,
-                    Description = "Computer Science subject",
-                    Name = "Computer Science"
-                }
+            //    new Subject
+            //    {
+            //        SubjectId = 1,
+            //        Description = "Biology subject",
+            //        Name = "Biology"
+            //    },
+            //    new Subject
+            //    {
+            //        SubjectId = 2,
+            //        Description = "Math subject",
+            //        Name = "Math"
+            //    },
+            //    new Subject
+            //    {
+            //        SubjectId = 3,
+            //        Description = "Computer Science subject",
+            //        Name = "Computer Science"
+            //    }
 
-                );
+            //    );
 
-            modelBuilder.Entity<Mark>().HasData(
-                new Mark
-                {
-                    MarkId = 1,
-                    StudentId = 1,
-                    SubjectId = 1,
-                    DateOfIssue = DateTime.Now,
-                    MarkValue = 5,
-                },
-                new Mark
-                {
-                    MarkId = 2,
-                    StudentId = 2,
-                    SubjectId = 2,
-                    DateOfIssue = DateTime.Now,
-                    MarkValue = 4,
-                },
-                new Mark
-                {
-                    MarkId = 3,
-                    StudentId = 1,
-                    SubjectId = 2,
-                    DateOfIssue = DateTime.Now,
-                    MarkValue = 3,
-                },
-                new Mark
-                {
-                    MarkId = 4,
-                    StudentId = 3,
-                    SubjectId = 3,
-                    DateOfIssue = DateTime.Now,
-                    MarkValue = 4,
-                }
-                );
+            //modelBuilder.Entity<Mark>().HasData(
+            //    new Mark
+            //    {
+            //        MarkId = 1,
+            //        StudentId = 1,
+            //        SubjectId = 1,
+            //        DateOfIssue = DateTime.Now,
+            //        MarkValue = 5,
+            //    },
+            //    new Mark
+            //    {
+            //        MarkId = 2,
+            //        StudentId = 2,
+            //        SubjectId = 2,
+            //        DateOfIssue = DateTime.Now,
+            //        MarkValue = 4,
+            //    },
+            //    new Mark
+            //    {
+            //        MarkId = 3,
+            //        StudentId = 1,
+            //        SubjectId = 2,
+            //        DateOfIssue = DateTime.Now,
+            //        MarkValue = 3,
+            //    },
+            //    new Mark
+            //    {
+            //        MarkId = 4,
+            //        StudentId = 3,
+            //        SubjectId = 3,
+            //        DateOfIssue = DateTime.Now,
+            //        MarkValue = 4,
+            //    }
+            //    );
         }
     }
 

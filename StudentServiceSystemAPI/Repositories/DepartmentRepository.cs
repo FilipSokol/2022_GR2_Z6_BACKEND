@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using StudentServiceSystemAPI.Data;
 using StudentServiceSystemAPI.DtoModels;
 
@@ -32,9 +33,16 @@ namespace StudentServiceSystemAPI.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<DepartmentDto> GetById(int id)
+        public async Task<DepartmentDto> GetById(int id)
         {
-            throw new NotImplementedException();
+            var department = await this.context
+                .Departments
+                .FirstOrDefaultAsync(d => d.DepartmentId == id);
+
+            if (department is null) throw new NullReferenceException("Department not found");
+
+            var result = this.mapper.Map<DepartmentDto>(department);
+            return result;
         }
 
         public Task Update(int id, DepartmentDto department)
