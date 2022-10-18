@@ -41,7 +41,7 @@ Aplikacja ułatwiająca zarządzanie studentami.
 
 Poniżej zamieszczone są główne klasy wykorzystane w części Backendu.
 
-![alt text](https://github.com/FilipSokol/2022_GR2_Z6_BACKEND/tree/master/Img/ClassDiagram.png?raw=true)
+![alt text](https://raw.githubusercontent.com/FilipSokol/2022_GR2_Z6_BACKEND/master/Img/ClassDiagram.png)
 ## Model Bazy Danych
 
 Model
