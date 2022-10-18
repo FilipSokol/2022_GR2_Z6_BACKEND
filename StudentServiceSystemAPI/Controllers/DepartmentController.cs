@@ -4,7 +4,7 @@ using StudentServiceSystemAPI.Repositories;
 
 namespace StudentServiceSystemAPI.Controllers
 {
-    [Route("api/department")]
+    [Route("api/departments")]
     [ApiController]
     public class DepartmentController : ControllerBase
     {
