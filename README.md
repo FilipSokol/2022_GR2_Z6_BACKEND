@@ -21,7 +21,7 @@ Aplikacja ułatwiająca zarządzanie studentami.
  - [Wymagania Niefunkcjonalne](#-wymagania-niefunkcjonalne)
  - [Diagram Klas](#-diagram-klas)
  - [Model Bazy Danych](#-model-bazy-danych)
- - [Model Architektury](#-model-architektury)
+ - [Model Architektury](#model-architektury)
  
 
 ## Wymagania Funkcjonalne
@@ -48,5 +48,5 @@ Model
 
 ![alt text](https://raw.githubusercontent.com/FilipSokol/2022_GR2_Z6_BACKEND/master/Img/database_model.png)
 ## Model Architektury
-
+<a name="model_architektury"></a>
 ![alt text](https://raw.githubusercontent.com/FilipSokol/2022_GR2_Z6_BACKEND/master/Img/Architecture.png)
