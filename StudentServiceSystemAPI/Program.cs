@@ -18,6 +18,16 @@ builder.Services.AddScoped<IGroupRepository, GroupRepository>();
 builder.Services.AddScoped<IMarkRepository, MarkRepository>();
 builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddCors(options =>
+{
+    var origins = builder.Configuration["AllowedOrigins"].Split(";");
+
+    options.AddPolicy("Client", builder =>
+        builder.AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithOrigins(origins)
+            .AllowCredentials());
+});
 
 var app = builder.Build();
 
@@ -29,9 +39,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("Client");
 app.UseAuthorization();
 app.UseRouting();
+
 
 app.MapControllers();
 
