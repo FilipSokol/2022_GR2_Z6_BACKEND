@@ -25,7 +25,8 @@ namespace StudentServiceSystemAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DepartmentDto>>> Get()
         {
-            return Ok();
+            var departments = await this.departmentRepository.GetAll();
+            return Ok(departments);
         }
 
         [HttpPost]

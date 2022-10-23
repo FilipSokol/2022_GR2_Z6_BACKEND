@@ -4,7 +4,7 @@ using StudentServiceSystemAPI.Repositories;
 
 namespace StudentServiceSystemAPI.Controllers
 {
-    [Route("api/departments/{departmentId}/subjects")]
+    [Route("api/subjects")]
     public class SubjectController : ControllerBase
     {
         private readonly ISubjectRepository subjectRepository;
@@ -14,23 +14,30 @@ namespace StudentServiceSystemAPI.Controllers
             this.subjectRepository = subjectRepository;
         }
 
-        public async Task<ActionResult<Student>> GetById(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Subject>> GetById([FromRoute] int id)
+        {
+            var subject = await this.subjectRepository.GetById(id);
+            return Ok(subject);
+        }
+        [HttpGet]
+        public async Task<ActionResult<List<Subject>>> GetAll()
+        {
+            var subjects = await this.subjectRepository.GetAll();
+            return Ok(subjects);
+        }
+        [HttpPost]
+        public async Task<ActionResult<int>> Create([FromBody]Student student)
         {
             throw new NotImplementedException();
         }
-        public async Task<ActionResult<List<Student>>> GetAll()
+        [HttpDelete]
+        public async Task<ActionResult> Delete([FromRoute]int id)
         {
             throw new NotImplementedException();
         }
-        public async Task<ActionResult<int>> Create(Student student)
-        {
-            throw new NotImplementedException();
-        }
-        public async Task<ActionResult> Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-        public async Task<ActionResult> Update(int id, Student student)
+        [HttpPut]
+        public async Task<ActionResult> Update([FromRoute]int id, [FromBody]Student student)
         {
             throw new NotImplementedException();
         }

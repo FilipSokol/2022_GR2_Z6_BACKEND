@@ -28,9 +28,15 @@ namespace StudentServiceSystemAPI.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<List<DepartmentDto>> GetAll()
+        public async Task<List<DepartmentDto>> GetAll()
         {
-            throw new NotImplementedException();
+            var departments = await this.context
+                .Departments
+                .ToListAsync();
+
+            var departmentsDtos = this.mapper.Map<List<DepartmentDto>>(departments);
+
+            return departmentsDtos;
         }
 
         public async Task<DepartmentDto> GetById(int id)

@@ -2,11 +2,6 @@
 {
     public class Department
     {
-        public Department()
-        {
-            Groups = new List<Group>();
-        }
-
         public int DepartmentId { get; set; }
         public string? Name { get; set; }
         public string? Address { get; set; }

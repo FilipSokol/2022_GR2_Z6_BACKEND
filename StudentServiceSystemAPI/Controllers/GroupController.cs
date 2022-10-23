@@ -8,7 +8,7 @@ namespace StudentServiceSystemAPI.Controllers
     [Route("api/departments/{departmentId}/groups")]
     public class GroupController : ControllerBase
     {
-        private IGroupRepository groupRepository;
+        private readonly IGroupRepository groupRepository;
 
         public GroupController(IGroupRepository groupRepository)
         {
@@ -16,27 +16,39 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpGet("{groupId}")]
-        public async Task<ActionResult<Group>> GetById(int departmentId, int groupId)
+        public async Task<ActionResult<Group>> GetById([FromRoute]int departmentId, [FromRoute] int groupId)
+        {
+            var group = await this.groupRepository.GetById(departmentId, groupId);
+            return Ok(group);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Group>>> GetAll([FromRoute] int departmentId)
+        {
+            var groups = await this.groupRepository.GetAll(departmentId);
+            return Ok(groups);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<int>> Create([FromRoute] int departmentId, [FromBody] Group group)
         {
             throw new NotImplementedException();
         }
-        public async Task<ActionResult<List<Group>>> GetAll(int departmentId)
+
+        [HttpDelete]
+        public async Task<ActionResult> RemoveAll([FromRoute] int departmentId)
         {
             throw new NotImplementedException();
         }
-        public async Task<ActionResult<int>> Create(int departmentId, Group group)
+
+        [HttpDelete("{groupId}")]
+        public async Task<ActionResult> Remove([FromRoute] int departmentId, [FromRoute] int groupId)
         {
             throw new NotImplementedException();
         }
-        public async Task<ActionResult> RemoveAll(int departmentId)
-        {
-            throw new NotImplementedException();
-        }
-        public async Task<ActionResult> Remove(int departmentId, int groupId)
-        {
-            throw new NotImplementedException();
-        }
-        public async Task<ActionResult> Update(int departmentId, int groupId, Group group)
+
+        [HttpPut]
+        public async Task<ActionResult> Update([FromRoute] int departmentId, [FromRoute] int groupId, [FromBody] Group group)
         {
             throw new NotImplementedException();
         }

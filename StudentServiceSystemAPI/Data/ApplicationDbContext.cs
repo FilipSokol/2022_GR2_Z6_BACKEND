@@ -12,31 +12,33 @@ namespace StudentServiceSystemAPI.Data
         public DbSet<Student> Students { get; set; }
         public DbSet<Mark> Marks { get; set; }
         public DbSet<Subject> Subjects { get; set; }
-
+        public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<WeekDays> WeekDays { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Department>().Ignore(t => t.Groups);
+            //modelBuilder.Entity<Department>().Ignore(t => t.Groups);
 
             modelBuilder.Entity<Group>()
                 .HasOne(s => s.Schedule)
                 .WithOne(g => g.Group)
                 .HasForeignKey<Schedule>(s => s.GroupId);
 
-            modelBuilder.Entity<Group>().HasOne(d => d.Department).WithMany(g => g.Groups).HasForeignKey(d => d.DepartmentId);
+            //modelBuilder.Entity<Group>().HasOne(d => d.Department).WithMany(g => g.Groups).HasForeignKey(d => d.DepartmentId);
 
-            modelBuilder.Entity<Group>().Ignore(t => t.Students);
+            ////modelBuilder.Entity<Group>().Ignore(t => t.Students);
 
-            modelBuilder.Entity<Student>().HasOne(g => g.Group).WithMany(s => s.Students).HasForeignKey(g => g.GroupId);
+            //modelBuilder.Entity<Student>().HasOne(g => g.Group).WithMany(s => s.Students).HasForeignKey(g => g.GroupId);
 
-            modelBuilder.Entity<Student>().Ignore(t => t.Marks);
+            ////modelBuilder.Entity<Student>().Ignore(t => t.Marks);
 
-            modelBuilder.Entity<Mark>().HasOne(s => s.Student).WithMany(m => m.Marks).HasForeignKey(s => s.StudentId);
+            //modelBuilder.Entity<Mark>().HasOne(s => s.Student).WithMany(m => m.Marks).HasForeignKey(s => s.StudentId);
 
-            modelBuilder.Entity<Mark>().HasOne(s => s.Subject).WithMany(m => m.Marks).HasForeignKey(s => s.SubjectId);
+            //modelBuilder.Entity<Mark>().HasOne(s => s.Subject).WithMany(m => m.Marks).HasForeignKey(s => s.SubjectId);
 
-            modelBuilder.Entity<Subject>().Ignore(t => t.Marks);
+            //modelBuilder.Entity<Subject>().Ignore(t => t.Marks);
 
             Initialize(modelBuilder);
         }
@@ -100,6 +102,24 @@ namespace StudentServiceSystemAPI.Data
 
                 );
 
+            modelBuilder.Entity<Schedule>().HasData(
+               new Schedule
+               {
+                   Id = 1,
+                   GroupId = 1,
+               },
+               new Schedule
+               {
+                   Id = 2,
+                   GroupId = 2,
+               },
+               new Schedule
+               {
+                   Id = 3,
+                   GroupId = 3,
+               }
+               );
+
             modelBuilder.Entity<Student>().HasData(
 
                 new Student
@@ -126,64 +146,153 @@ namespace StudentServiceSystemAPI.Data
 
                 );
 
+           
 
-            //modelBuilder.Entity<Subject>().HasData(
+            modelBuilder.Entity<WeekDays>().HasData(
+                new WeekDays
+                {
+                    Id = 1,
+                    Name = "Monday",
+                    ScheduleId = 1,
 
-            //    new Subject
-            //    {
-            //        SubjectId = 1,
-            //        Description = "Biology subject",
-            //        Name = "Biology"
-            //    },
-            //    new Subject
-            //    {
-            //        SubjectId = 2,
-            //        Description = "Math subject",
-            //        Name = "Math"
-            //    },
-            //    new Subject
-            //    {
-            //        SubjectId = 3,
-            //        Description = "Computer Science subject",
-            //        Name = "Computer Science"
-            //    }
+                },
+                new WeekDays
+                {
+                    Id = 2,
+                    Name = "Tuesday",
+                    ScheduleId = 1
+                },
+                new WeekDays
+                {
+                    Id = 3,
+                    Name = "Wednesday",
+                    ScheduleId = 1,
+                },
+                new WeekDays
+                {
+                    Id = 4,
+                    Name = "Thursday",
+                    ScheduleId = 1,
+                },
+                new WeekDays
+                {
+                    Id = 5,
+                    Name = "Friday",
+                    ScheduleId = 1,
+                },
+                new WeekDays
+                {
+                    Id = 6,
+                    Name = "Saturday",
+                    ScheduleId = 1,
+                },
+                new WeekDays
+                {
+                    Id = 7,
+                    Name = "Sunday",
+                    ScheduleId = 1,
+                }
+                );
 
-            //    );
 
-            //modelBuilder.Entity<Mark>().HasData(
-            //    new Mark
-            //    {
-            //        MarkId = 1,
-            //        StudentId = 1,
-            //        SubjectId = 1,
-            //        DateOfIssue = DateTime.Now,
-            //        MarkValue = 5,
-            //    },
-            //    new Mark
-            //    {
-            //        MarkId = 2,
-            //        StudentId = 2,
-            //        SubjectId = 2,
-            //        DateOfIssue = DateTime.Now,
-            //        MarkValue = 4,
-            //    },
-            //    new Mark
-            //    {
-            //        MarkId = 3,
-            //        StudentId = 1,
-            //        SubjectId = 2,
-            //        DateOfIssue = DateTime.Now,
-            //        MarkValue = 3,
-            //    },
-            //    new Mark
-            //    {
-            //        MarkId = 4,
-            //        StudentId = 3,
-            //        SubjectId = 3,
-            //        DateOfIssue = DateTime.Now,
-            //        MarkValue = 4,
-            //    }
-            //    );
+            modelBuilder.Entity<Subject>().HasData(
+
+                new Subject
+                {
+                    SubjectId = 1,
+                    Description = "Biology subject",
+                    Name = "Biology",
+                    StartTime = DateTime.UtcNow,
+                    EndTime = DateTime.UtcNow,
+                    WeekDaysId = 1,
+                    TeacherId = 1
+                    
+                },
+                new Subject
+                {
+                    SubjectId = 2,
+                    Description = "Math subject",
+                    Name = "Math",
+                    StartTime = DateTime.UtcNow,
+                    EndTime = DateTime.UtcNow,
+                    WeekDaysId = 1,
+                    TeacherId = 2
+                },
+                new Subject
+                {
+                    SubjectId = 3,
+                    Description = "Computer Science subject",
+                    Name = "Computer Science",
+                    StartTime = DateTime.UtcNow,
+                    EndTime = DateTime.UtcNow,
+                    WeekDaysId = 1,
+                    TeacherId = 3
+                }
+
+                );
+
+            modelBuilder.Entity<Teacher>().HasData(
+                new Teacher
+                {
+                    TeacherId = 1,
+                    Name = "Jan",
+                    Surname = "Kowalski",
+                    Email = "kowalski@teacher.com"
+                },
+                 new Teacher
+                {
+                    TeacherId = 2,
+                    Name = "Adam",
+                    Surname = "Nowak",
+                    Email = "nowak@teacher.com"
+                },
+                 new Teacher
+                {
+                    TeacherId = 3,
+                    Name = "Michał",
+                    Surname = "Monitor",
+                    Email = "monitor@teacher.com"
+                }
+                );
+
+            modelBuilder.Entity<Mark>().HasData(
+                new Mark
+                {
+                    MarkId = 1,
+                    StudentId = 1,
+                    SubjectId = 1,
+                    DateOfIssue = DateTime.Now,
+                    MarkValue = 5,
+                    Description = "desc"
+                },
+                new Mark
+                {
+                    MarkId = 2,
+                    StudentId = 2,
+                    SubjectId = 2,
+                    DateOfIssue = DateTime.Now,
+                    MarkValue = 4,
+                    Description = "desc"
+                },
+                new Mark
+                {
+                    MarkId = 3,
+                    StudentId = 1,
+                    SubjectId = 2,
+                    DateOfIssue = DateTime.Now,
+                    MarkValue = 3,
+                    Description = "desc"
+                },
+                new Mark
+                {
+                    MarkId = 4,
+                    StudentId = 3,
+                    SubjectId = 3,
+                    DateOfIssue = DateTime.Now,
+                    MarkValue = 4,
+                    Description = "desc"
+                }
+                );
         }
     }
 

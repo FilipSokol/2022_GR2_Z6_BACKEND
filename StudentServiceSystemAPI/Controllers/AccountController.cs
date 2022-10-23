@@ -15,11 +15,13 @@ namespace StudentServiceSystemAPI.Controllers
             this.accountService = accountService;
         }
 
+        [HttpPost("register")]
         public Task<ActionResult> RegisterUser([FromBody]RegisterUserDto dto)
         {
             throw new NotImplementedException();
         }
 
+        [HttpPost("login")]
         public Task<ActionResult> Login([FromBody]LoginDto dto)
         {
             throw new NotImplementedException();
