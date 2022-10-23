@@ -7,7 +7,7 @@ namespace StudentServiceSystemAPI.Repositories
     {
         Task<Mark> GetById(int studentId, int id);
         Task<List<Mark>> GetAll(int studentId);
-        Task<int> Create(Mark mark);
+        Task<int> Create(int studentId, CreateMarkDto dto);
         Task Delete(int id);
         Task Update(int id, Mark mark);
     }

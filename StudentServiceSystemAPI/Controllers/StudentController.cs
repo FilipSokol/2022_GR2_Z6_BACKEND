@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Models;
 using StudentServiceSystemAPI.Repositories;
 
@@ -28,9 +29,10 @@ namespace StudentServiceSystemAPI.Controllers
             return Ok(students);
         }
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody] Student student)
+        public async Task<ActionResult<int>> Create([FromRoute] int departmentId, [FromRoute] int groupId, [FromBody] CreateStudentDto dto)
         {
-            throw new NotImplementedException();
+            var id = await this.studentRepository.Create(departmentId, groupId, dto);
+            return Created($"/api/department/{id}", null);
         }
         [HttpDelete]
         public async Task<ActionResult> Delete([FromRoute] int id)

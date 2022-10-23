@@ -19,15 +19,23 @@ namespace StudentServiceSystemAPI.Repositories
             this.logger = logger;
         }
 
-        public Task<int> Create(int departmentId, Group group)
+        public async Task<int> Create(int departmentId, CreateGroupDto dto)
         {
-            throw new NotImplementedException();
+            var group = this.mapper.Map<Group>(dto);
+
+            group.DepartmentId = departmentId;
+
+            await this.context.Groups.AddAsync(group);
+            await this.context.SaveChangesAsync();
+
+            return group.GroupId;
         }
 
         public async Task<List<Group>> GetAll(int departmentId)
         {
             var groups = await this.context
                  .Groups
+                 .Where(x => x.DepartmentId == departmentId)
                  .ToListAsync();
 
             return groups;

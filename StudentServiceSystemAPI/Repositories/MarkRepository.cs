@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using StudentServiceSystemAPI.Data;
+using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Models;
 
 namespace StudentServiceSystemAPI.Repositories
@@ -18,9 +19,15 @@ namespace StudentServiceSystemAPI.Repositories
             this.logger = logger;
         }
 
-        public Task<int> Create(Mark mark)
+        public async Task<int> Create(int studentId, CreateMarkDto dto)
         {
-            throw new NotImplementedException();
+            var mark = this.mapper.Map<Mark>(dto);
+            mark.StudentId = studentId;
+            
+            await this.context.Marks.AddAsync(mark);
+            await this.context.SaveChangesAsync();
+
+            return mark.MarkId;
         }
 
         public Task Delete(int id)

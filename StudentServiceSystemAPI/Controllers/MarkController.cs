@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Models;
 using StudentServiceSystemAPI.Repositories;
 using System.Text.RegularExpressions;
@@ -30,9 +31,10 @@ namespace StudentServiceSystemAPI.Controllers
             return Ok(marks);
         }
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody] Mark mark)
+        public async Task<ActionResult<int>> Create([FromRoute] int studentId, [FromBody] CreateMarkDto dto)
         {
-            throw new NotImplementedException();
+            var id = await this.markRepository.Create(studentId, dto);
+            return Created($"/api/department/{id}", null);
         }
         [HttpDelete]
         public async Task<ActionResult> Delete([FromRoute] int id)

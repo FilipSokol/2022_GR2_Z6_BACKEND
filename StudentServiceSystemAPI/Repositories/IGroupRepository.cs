@@ -1,4 +1,5 @@
-﻿using StudentServiceSystemAPI.Models;
+﻿using StudentServiceSystemAPI.DtoModels;
+using StudentServiceSystemAPI.Models;
 
 namespace StudentServiceSystemAPI.Repositories
 {
@@ -6,7 +7,7 @@ namespace StudentServiceSystemAPI.Repositories
     {
         Task<Group> GetById(int departmentId, int groupId);
         Task<List<Group>> GetAll(int departmentId);
-        Task<int> Create(int departmentId, Group group);
+        Task<int> Create(int departmentId, CreateGroupDto group);
         Task RemoveAll(int departmentId);
         Task Remove(int departmentId, int groupId);
         Task Update(int departmentId, int groupId, Group group);

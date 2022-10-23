@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using StudentServiceSystemAPI.Data;
+using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Models;
 
 namespace StudentServiceSystemAPI.Repositories
@@ -19,9 +20,20 @@ namespace StudentServiceSystemAPI.Repositories
             this.logger = logger;
         }
 
-        public Task<int> Create(Student student)
+        public async Task<int> Create(int departmentId, int groupId, CreateStudentDto dto)
         {
-            throw new NotImplementedException();
+            var student = this.mapper.Map<Student>(dto);
+
+            var group = await this.context.Groups.FirstOrDefaultAsync(x => x.DepartmentId == departmentId && x.GroupId == groupId);
+
+            if (group == null) throw new NullReferenceException("Group does not exist.");
+
+            student.GroupId = groupId;
+
+            await this.context.Students.AddAsync(student);
+            await this.context.SaveChangesAsync();
+
+            return student.StudentId;
         }
 
         public Task Delete(int id)

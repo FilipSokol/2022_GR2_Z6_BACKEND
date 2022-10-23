@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using StudentServiceSystemAPI.Data;
 using StudentServiceSystemAPI.DtoModels;
+using StudentServiceSystemAPI.Models;
 
 namespace StudentServiceSystemAPI.Repositories
 {
@@ -18,9 +19,14 @@ namespace StudentServiceSystemAPI.Repositories
             this.logger = logger;
         }
 
-        public Task<int> Create(DepartmentDto department)
+        public async Task<int> Create(CreateDepartmentDto dto)
         {
-            throw new NotImplementedException();
+            var department = this.mapper.Map<Department>(dto);
+
+            await this.context.Departments.AddAsync(department);
+            await this.context.SaveChangesAsync();
+
+            return department.DepartmentId;
         }
 
         public Task Delete(int id)

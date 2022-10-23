@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Models;
 using StudentServiceSystemAPI.Repositories;
+using System.Text.RegularExpressions;
 
 namespace StudentServiceSystemAPI.Controllers
 {
@@ -27,9 +29,10 @@ namespace StudentServiceSystemAPI.Controllers
             return Ok(subjects);
         }
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody]Student student)
+        public async Task<ActionResult<int>> Create([FromBody]CreateSubjectDto dto)
         {
-            throw new NotImplementedException();
+            var id = await this.subjectRepository.Create(dto);
+            return Created($"/api/department/{id}", null);
         }
         [HttpDelete]
         public async Task<ActionResult> Delete([FromRoute]int id)

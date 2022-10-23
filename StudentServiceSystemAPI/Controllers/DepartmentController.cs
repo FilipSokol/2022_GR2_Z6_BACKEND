@@ -30,9 +30,9 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateDepartment([FromBody] DepartmentDto dto)
+        public async Task<ActionResult> CreateDepartment([FromBody] CreateDepartmentDto dto)
         {
-            var id = 2;
+            var id = await this.departmentRepository.Create(dto);
             return Created($"/api/department/{id}", null);
         }
 

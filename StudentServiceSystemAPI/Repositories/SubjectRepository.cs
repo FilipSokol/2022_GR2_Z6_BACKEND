@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using StudentServiceSystemAPI.Data;
+using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Models;
 
 namespace StudentServiceSystemAPI.Repositories
@@ -18,9 +19,14 @@ namespace StudentServiceSystemAPI.Repositories
             this.mapper = mapper;
             this.logger = logger;
         }
-        public Task<int> Create(Subject subject)
+        public async Task<int> Create(CreateSubjectDto dto)
         {
-            throw new NotImplementedException();
+            var subject = this.mapper.Map<Subject>(dto);
+
+            await this.context.Subjects.AddAsync(subject);
+            await this.context.SaveChangesAsync();
+
+            return subject.SubjectId;
         }
 
         public Task Delete(int id)

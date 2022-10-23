@@ -1,4 +1,5 @@
-﻿using StudentServiceSystemAPI.Models;
+﻿using StudentServiceSystemAPI.DtoModels;
+using StudentServiceSystemAPI.Models;
 
 namespace StudentServiceSystemAPI.Repositories
 {
@@ -6,7 +7,7 @@ namespace StudentServiceSystemAPI.Repositories
     {
         Task<Subject> GetById(int id);
         Task<List<Subject>> GetAll();
-        Task<int> Create(Subject subject);
+        Task<int> Create(CreateSubjectDto dto);
         Task Delete(int id);
         Task Update(int id, Subject subject);
     }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Models;
 using StudentServiceSystemAPI.Repositories;
 
@@ -30,9 +31,10 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromRoute] int departmentId, [FromBody] Group group)
+        public async Task<ActionResult<int>> Create([FromRoute] int departmentId, [FromBody] CreateGroupDto group)
         {
-            throw new NotImplementedException();
+            var id = await this.groupRepository.Create(departmentId, group);
+            return Created($"/api/department/{id}", null);
         }
 
         [HttpDelete]
