@@ -22,6 +22,7 @@ Aplikacja ułatwiająca zarządzanie studentami.
  - [Diagram Klas](#diagram-klas)
  - [Model Bazy Danych](#model-bazy)
  - [Model Architektury](#model-architektury)
+ - [Endpointy](#endpointy)
  
 
 ## Wymagania Funkcjonalne
@@ -53,7 +54,7 @@ Model
 
 
 ## Endpointy
-
+<a name="endpointy"></a>
 Każdy z obiektów biznesowych posiada własny endpoint umożliwiający tworzenie, odczytywanie, modyfikację oraz usuwanie obiektu z bazy danych.
 
 Poniżej przedstawiono endpointy wraz z metodami:
