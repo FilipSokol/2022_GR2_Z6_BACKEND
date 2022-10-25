@@ -50,3 +50,223 @@ Model
 ## Model Architektury
 <a name="model_architektury"></a>
 ![alt text](https://raw.githubusercontent.com/FilipSokol/2022_GR2_Z6_BACKEND/master/Img/Architecture.png)
+
+
+## Endpointy
+
+Każdy z obiektów biznesowych posiada własny endpoint umożliwiający tworzenie, odczytywanie, modyfikację oraz usuwanie obiektu z bazy danych.
+
+Poniżej przedstawiono endpointy wraz z metodami:
+| Parametr | Typ     | Opis                |
+| :-------- | :------- | :------------------------- |
+| **TBD**`JWT Bearer` | `string` | **Wymagany**. Dla wszystkich operacji wymagany jest token autentykacyjny |
+
+### Departments:
+
+#### Wyświetl wszystkie obiekty typu Department:
+```http
+  GET /api/departments
+```
+
+#### Wyświetl obiekt typu Department o podanym Id
+```http
+  GET /api/departments/${id}
+```
+
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `int` | **Wymagane**. Id wydziału |
+
+
+#### Dodaj obiekt typu Department
+
+```http
+  POST /api/departments
+```
+
+| Body | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `CreateDepartmentDto` | serialized json | **Wymagane**. Id wydziału |
+
+#### Przykład body CreateDepartmentDto
+```yaml
+{
+   "Name": "Wydział Inżynierii",
+   "Address": "Zielona 3",
+   "City": "Częstochowa",
+   "PostalCode": "42-700"
+}
+```
+
+
+### Groups:
+
+#### Wyświetl wszystkie obiekty typu Group:
+```http
+  GET /api/departments/{departmentId}/groups
+```
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `departmentId`      | `int` | **Wymagane**. Id wydziału |
+
+#### Wyświetl obiekt typu Department o podanym Id
+```http
+  GET /api/departments/{departmentId}/groups/{groupId}
+```
+
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `departmentId`      | `int` | **Wymagane**. Id wydziału |
+| `groupId`      | `int` | **Wymagane**. Id grupy |
+
+#### Dodaj obiekt typu Group
+
+```http
+  POST /api/departments/{departmentId}/groups
+```
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `departmentId`      | `int` | **Wymagane**. Id wydziału |
+
+| Body      | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `CreateGroupDto` | serialized json | **Wymagane**. Dane tworzonego Deparamentu |
+
+#### Przykład body CreateDepartmentDto
+```yaml
+{
+   "Name": "group_2022_2",
+}
+```
+
+### Students:
+
+#### Wyświetl wszystkie obiekty typu Student:
+```http
+  GET /api/departments/{departmentId}/groups/{groupId}/students
+```
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `departmentId`      | `int` | **Wymagane**. Id wydziału |
+| `groupId`      | `int` | **Wymagane**. Id grupy |
+
+#### Wyświetl obiekt typu Student o podanym Id
+```http
+  GET /api/students/{id}
+```
+
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `int` | **Wymagane**. Id studenta |
+
+
+#### Dodaj obiekt typu Student
+
+```http
+  POST /api/departments/{departmentId}/groups/{groupId}/students
+```
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `departmentId`      | `int` | **Wymagane**. Id wydziału |
+| `groupId`           | `int` | **Wymagane**. Id grupy |
+
+| Body      | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `CreateStudentDto` | serialized json | **Wymagane**. Dane tworzonej grupy  |
+
+#### Przykład body CreateStudentDto
+```yaml
+{
+   "FirstName": "Jan",
+   "LastName": "Kowalski"
+}
+```
+
+### Marks:
+
+#### Wyświetl wszystkie obiekty typu Mark:
+```http
+  GET /api/students/{studentId}/marks
+```
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `studentId`      | `int` | **Wymagane**. Id studenta |
+
+
+#### Wyświetl obiekt typu Mark o podanym Id
+```http
+  GET /api/students/{studentId}/marks/{id}
+```
+
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `studentId`      | `int` | **Wymagane**. Id studenta |
+| `id`      | `int` | **Wymagane**. Id oceny |
+
+
+#### Dodaj obiekt typu Mark
+
+```http
+  POST /api/students/{studentId}/marks
+```
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `studentId`      | `int` | **Wymagane**. Id studenta |
+
+
+| Body      | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `CreateMarkDto` | serialized json | **Wymagane**. Dane tworzonej oceny  |
+
+#### Przykład body CreateMarkDto
+```yaml
+{
+   "DateOfIssue": "2022-01-01:14:42:34",
+   "SubjectId": 41,
+   "Description": "This is a mark!",
+   "StudentId": 132412,
+   "MarkValue": 5
+}
+```
+
+
+### Subjects:
+
+#### Wyświetl wszystkie obiekty typu Subject:
+```http
+  GET /api/subjects
+```
+
+
+#### Wyświetl obiekt typu Subject o podanym Id
+```http
+  GET /api/subjects/{id}
+```
+
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `int` | **Wymagane**. Id przedmiotu |
+
+
+#### Dodaj obiekt typu Subject
+
+```http
+  POST /api/subjects
+```
+
+| Body      | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `CreateSubjectDto` | serialized json | **Wymagane**. Dane tworzonego przedmiotu  |
+
+#### Przykład body CreateSubjectDto
+```yaml
+{
+   "Name": "Projekt zespołowy",
+   "Description": "This is a subject",
+   "StartTime": "2022-01-01:14:42:34",
+   "EndTime": "2022-01-01:15:42:34",
+   "WeekDaysId": 3,
+   "ECTS": 4,
+   "TeacherId": 5
+}
+```
