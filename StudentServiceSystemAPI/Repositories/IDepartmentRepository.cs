@@ -8,6 +8,6 @@ namespace StudentServiceSystemAPI.Repositories
         Task<List<DepartmentDto>> GetAll();
         Task<int> Create(CreateDepartmentDto department);
         Task Delete(int id);
-        Task Update(int id, DepartmentDto department);
+        Task Update(int id, UpdateDepartmentDto department);
     }
 }

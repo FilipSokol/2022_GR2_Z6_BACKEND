@@ -2,6 +2,7 @@
 using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Models;
 using StudentServiceSystemAPI.Repositories;
+using System.Text.RegularExpressions;
 
 namespace StudentServiceSystemAPI.Controllers
 {
@@ -34,15 +35,17 @@ namespace StudentServiceSystemAPI.Controllers
             var id = await this.studentRepository.Create(departmentId, groupId, dto);
             return Created($"/api/department/{id}", null);
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> Delete([FromRoute] int id)
         {
-            throw new NotImplementedException();
+            await this.studentRepository.Delete(id);
+            return NoContent();
         }
-        [HttpPut]
-        public async Task<ActionResult> Update([FromRoute]int id, [FromBody] Student student)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update([FromRoute]int id, [FromBody] UpdateStudentDto student)
         {
-            throw new NotImplementedException();
+            await this.studentRepository.Update(id, student);
+            return Ok();
         }
     }
 }

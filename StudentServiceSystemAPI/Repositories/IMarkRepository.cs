@@ -9,6 +9,6 @@ namespace StudentServiceSystemAPI.Repositories
         Task<List<Mark>> GetAll(int studentId);
         Task<int> Create(int studentId, CreateMarkDto dto);
         Task Delete(int id);
-        Task Update(int id, Mark mark);
+        Task Update(int id, UpdateMarkDto mark);
     }
 }

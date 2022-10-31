@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentServiceSystemAPI.Data;
 using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Models;
+using System.Text.RegularExpressions;
 
 namespace StudentServiceSystemAPI.Repositories
 {
@@ -23,16 +24,23 @@ namespace StudentServiceSystemAPI.Repositories
         {
             var mark = this.mapper.Map<Mark>(dto);
             mark.StudentId = studentId;
-            
+
             await this.context.Marks.AddAsync(mark);
             await this.context.SaveChangesAsync();
 
             return mark.MarkId;
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var mark = await this.context
+                .Marks
+                .FirstOrDefaultAsync(e => e.MarkId == id);
+
+            if (mark == null) throw new Exception("Mark not found");
+
+            this.context.Remove(mark);
+            await this.context.SaveChangesAsync();
         }
 
         public async Task<List<Mark>> GetAll(int studentId)
@@ -58,9 +66,19 @@ namespace StudentServiceSystemAPI.Repositories
             return mark;
         }
 
-        public Task Update(int id, Mark mark)
+        public async Task Update(int id, UpdateMarkDto dto)
         {
-            throw new NotImplementedException();
+            var mark = await this.context
+                .Marks
+                .FirstOrDefaultAsync(d => d.MarkId == id);
+
+            if (mark is null) throw new NullReferenceException("Mark not found");
+
+            mark.DateOfIssue = dto.DateOfIssue;
+            mark.Description = dto.Description;
+            mark.MarkValue = dto.MarkValue;
+
+            await this.context.SaveChangesAsync();
         }
     }
 }

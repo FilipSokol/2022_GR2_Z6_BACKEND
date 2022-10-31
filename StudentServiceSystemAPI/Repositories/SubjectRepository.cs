@@ -29,9 +29,16 @@ namespace StudentServiceSystemAPI.Repositories
             return subject.SubjectId;
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var subject = this.context
+                .Subjects
+                .FirstOrDefault(e => e.SubjectId == id);
+
+            if (subject == null) throw new Exception("Subject not found");
+
+            this.context.Remove(subject);
+            await this.context.SaveChangesAsync();
         }
 
         public async Task<List<Subject>> GetAll()
@@ -56,9 +63,23 @@ namespace StudentServiceSystemAPI.Repositories
             return subject;
         }
 
-        public Task Update(int id, Subject subject)
+        public async Task Update(int id, SubjectDto dto)
         {
-            throw new NotImplementedException();
+            var subject = await this.context
+                 .Subjects
+                 .FirstOrDefaultAsync(d => d.SubjectId == id);
+
+            if (subject is null) throw new NullReferenceException("Subject not found");
+
+            subject.Name = dto.Name;
+            subject.Description = dto.Description;
+            subject.StartTime = dto.StartTime;
+            subject.EndTime = dto.EndTime;
+            subject.WeekDaysId = dto.WeekDaysId;
+            subject.ECTS = dto.ECTS;
+            subject.TeacherId = dto.TeacherId;
+
+            await this.context.SaveChangesAsync();
         }
     }
 }

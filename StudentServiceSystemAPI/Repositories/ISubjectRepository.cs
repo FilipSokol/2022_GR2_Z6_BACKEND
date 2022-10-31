@@ -9,6 +9,6 @@ namespace StudentServiceSystemAPI.Repositories
         Task<List<Subject>> GetAll();
         Task<int> Create(CreateSubjectDto dto);
         Task Delete(int id);
-        Task Update(int id, Subject subject);
+        Task Update(int id, SubjectDto subject);
     }
 }

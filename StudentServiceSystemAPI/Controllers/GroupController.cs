@@ -40,19 +40,22 @@ namespace StudentServiceSystemAPI.Controllers
         [HttpDelete]
         public async Task<ActionResult> RemoveAll([FromRoute] int departmentId)
         {
-            throw new NotImplementedException();
+            await this.groupRepository.RemoveAll(departmentId);
+            return NoContent();
         }
 
         [HttpDelete("{groupId}")]
         public async Task<ActionResult> Remove([FromRoute] int departmentId, [FromRoute] int groupId)
         {
-            throw new NotImplementedException();
+            await this.groupRepository.Remove(departmentId, groupId);
+            return NoContent();
         }
 
-        [HttpPut]
-        public async Task<ActionResult> Update([FromRoute] int departmentId, [FromRoute] int groupId, [FromBody] Group group)
+        [HttpPut("{groupId}")]
+        public async Task<ActionResult> Update([FromRoute] int departmentId, [FromRoute] int groupId, [FromBody] UpdateGroupDto group)
         {
-            throw new NotImplementedException();
+            await this.groupRepository.Update(departmentId, groupId, group);
+            return Ok();
         }
     }
 }

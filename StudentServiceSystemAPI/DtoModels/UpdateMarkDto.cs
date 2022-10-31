@@ -1,6 +1,6 @@
 ﻿namespace StudentServiceSystemAPI.DtoModels
 {
-    public class CreateMarkDto
+    public class UpdateMarkDto
     {
         public DateTime DateOfIssue { get; set; }
         public int SubjectId { get; set; }

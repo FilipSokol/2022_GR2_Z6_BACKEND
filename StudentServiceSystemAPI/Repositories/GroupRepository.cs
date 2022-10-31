@@ -53,19 +53,52 @@ namespace StudentServiceSystemAPI.Repositories
 
         }
 
-        public Task Remove(int departmentId, int groupId)
+        public async Task Remove(int departmentId, int groupId)
         {
-            throw new NotImplementedException();
+            var department = await GetDepartmentById(departmentId);
+
+            var group = department
+                .Groups
+                .FirstOrDefault(e => e.GroupId == groupId);
+
+            if (group == null) throw new Exception("Group not found");
+
+            this.context.Remove(group);
+            await this.context.SaveChangesAsync();
         }
 
-        public Task RemoveAll(int departmentId)
+        public async Task RemoveAll(int departmentId)
         {
-            throw new NotImplementedException();
+            var department = await GetDepartmentById(departmentId);
+
+            this.context.RemoveRange(department.Groups);
+            await this.context.SaveChangesAsync();
         }
 
-        public Task Update(int departmentId, int groupId, Group group)
+        public async Task Update(int departmentId, int groupId, UpdateGroupDto dto)
         {
-            throw new NotImplementedException();
+            var group = await this.context
+            .Groups
+            .FirstOrDefaultAsync(d => d.DepartmentId == departmentId && d.GroupId == groupId);
+
+            if (group is null) throw new NullReferenceException("Group not found");
+
+            group.Name = dto.Name;
+            
+            await this.context.SaveChangesAsync();
+        }
+
+        private async Task<Department> GetDepartmentById(int departmentId)
+        {
+            var department = await this.context
+                .Departments
+                .Include(d => d.Groups)
+                .FirstOrDefaultAsync(r => r.DepartmentId == departmentId);
+
+            if (department is null)
+                throw new Exception("Department not found");
+
+            return department;
         }
     }
 }

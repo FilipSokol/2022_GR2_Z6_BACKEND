@@ -29,9 +29,16 @@ namespace StudentServiceSystemAPI.Repositories
             return department.DepartmentId;
         }
 
-        public Task Delete(int id)
+        public async  Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var department = await this.context
+                .Departments
+                .FirstOrDefaultAsync(e => e.DepartmentId == id);
+
+            if (department == null) throw new Exception("Department not found");
+
+            this.context.Remove(department);
+            await this.context.SaveChangesAsync();
         }
 
         public async Task<List<DepartmentDto>> GetAll()
@@ -57,9 +64,22 @@ namespace StudentServiceSystemAPI.Repositories
             return result;
         }
 
-        public Task Update(int id, DepartmentDto department)
+        public async Task Update(int id, UpdateDepartmentDto dto)
         {
-            throw new NotImplementedException();
+            var department = await this.context
+                .Departments
+                .FirstOrDefaultAsync(d => d.DepartmentId == id);
+
+            if (department is null) throw new NullReferenceException("Department not found");
+
+            department.Name = dto.Name;
+            department.Address = dto.Address;
+            department.City = dto.City;
+            department.PostalCode = dto.PostalCode;
+
+            this.logger.LogInformation($"Department with id: {id} UPDATE action invoked. Updated data: '{department.Name}' to '{dto.Name}', '{department.Address}' to '{dto.Address}'");
+
+            await this.context.SaveChangesAsync();
         }
     }
 }

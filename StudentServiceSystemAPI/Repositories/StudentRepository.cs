@@ -36,9 +36,16 @@ namespace StudentServiceSystemAPI.Repositories
             return student.StudentId;
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var student = this.context
+            .Students
+                .FirstOrDefault(e => e.StudentId == id);
+
+            if (student == null) throw new Exception("Student not found");
+
+            this.context.Remove(student);
+            await this.context.SaveChangesAsync();
         }
 
         public async Task<List<Student>> GetAll(int departmentId, int groupId)
@@ -69,9 +76,19 @@ namespace StudentServiceSystemAPI.Repositories
             return student;
         }
 
-        public Task Update(int id, Student student)
+        public async Task Update(int id, UpdateStudentDto dto)
         {
-            throw new NotImplementedException();
+            var student = await this.context
+                .Students
+                .FirstOrDefaultAsync(d => d.StudentId == id);
+
+            if (student is null) throw new NullReferenceException("Student not found");
+
+            student.FirstName = dto.FirstName;
+            student.GroupId = dto.GroupId;
+            student.LastName = dto.LastName;
+
+            await this.context.SaveChangesAsync();
         }
     }
 }

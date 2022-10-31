@@ -10,7 +10,7 @@ namespace StudentServiceSystemAPI.Repositories
         Task<int> Create(int departmentId, CreateGroupDto group);
         Task RemoveAll(int departmentId);
         Task Remove(int departmentId, int groupId);
-        Task Update(int departmentId, int groupId, Group group);
+        Task Update(int departmentId, int groupId, UpdateGroupDto group);
 
     }
 }

@@ -34,15 +34,17 @@ namespace StudentServiceSystemAPI.Controllers
             var id = await this.subjectRepository.Create(dto);
             return Created($"/api/department/{id}", null);
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> Delete([FromRoute]int id)
         {
-            throw new NotImplementedException();
+            await this.subjectRepository.Delete(id);
+            return NoContent();
         }
-        [HttpPut]
-        public async Task<ActionResult> Update([FromRoute]int id, [FromBody]Student student)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update([FromRoute]int id, [FromBody]SubjectDto dto)
         {
-            throw new NotImplementedException();
+            await this.subjectRepository.Update(id, dto);
+            return Ok();
         }
     }
 }

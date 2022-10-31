@@ -36,16 +36,18 @@ namespace StudentServiceSystemAPI.Controllers
             return Created($"/api/department/{id}", null);
         }
 
-
-        [HttpPut]
-        public async Task<ActionResult> Update([FromBody] DepartmentDto dto, [FromRoute] int id)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update([FromBody] UpdateDepartmentDto dto, [FromRoute] int id)
         {
+            await this.departmentRepository.Update(id, dto);
+
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> Delete([FromRoute]int id)
         {
+            await this.departmentRepository.Delete(id);
             return NoContent();
         }
 
