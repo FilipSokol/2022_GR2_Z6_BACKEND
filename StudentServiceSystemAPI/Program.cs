@@ -25,8 +25,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("Client", builder =>
         builder.AllowAnyMethod()
             .AllowAnyHeader()
+            //.AllowAnyOrigin()
             .WithOrigins(origins)
-            .AllowCredentials());
+            .AllowCredentials()
+            );
 });
 
 var app = builder.Build();
@@ -38,8 +40,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+
 app.UseCors("Client");
+
+
 app.UseAuthorization();
 app.UseRouting();
 

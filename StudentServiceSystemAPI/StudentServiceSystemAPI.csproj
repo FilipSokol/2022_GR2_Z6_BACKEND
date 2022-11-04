@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>e0b16129-f267-4163-a7dd-5d94d9bf3844</UserSecretsId>
+    <PackageProjectUrl>192.168.1.2:80</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
