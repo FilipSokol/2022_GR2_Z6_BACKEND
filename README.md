@@ -10,7 +10,7 @@ Aplikacja ułatwiająca zarządzanie studentami.
 
 **Client:** React, SCSS, Axios, Vite
 
-**Server:** C#, .NET 6, MsSql
+**Server:** C#, .NET 6, TSQL
 
 **Mobile:** React Native, TypeScript, Expo
 
