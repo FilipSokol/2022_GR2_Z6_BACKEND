@@ -98,6 +98,34 @@ Poniżej przedstawiono endpointy wraz z metodami:
    "PostalCode": "42-700"
 }
 ```
+#### Edytuj obiekt typu Department
+
+```http
+  PUT /api/departments/{id}
+```
+
+| Body | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `UpdateDepartmentDto` | serialized json | **Wymagane**. Id wydziału |
+
+#### Przykład body UpdateDepartmentDto
+```yaml
+{
+   "Name": "Wydział Inżynierii",
+   "Address": "Zielona 3",
+   "City": "Częstochowa",
+   "PostalCode": "42-700"
+}
+```
+
+#### Usuń obiekt typu Department o podanym Id
+```http
+  DELETE /api/departments/${id}
+```
+
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `int` | **Wymagane**. Id wydziału |
 
 
 ### Groups:
@@ -110,7 +138,7 @@ Poniżej przedstawiono endpointy wraz z metodami:
 | :-------- | :------- | :-------------------------------- |
 | `departmentId`      | `int` | **Wymagane**. Id wydziału |
 
-#### Wyświetl obiekt typu Department o podanym Id
+#### Wyświetl obiekt typu Group o podanym Id
 ```http
   GET /api/departments/{departmentId}/groups/{groupId}
 ```
@@ -139,6 +167,45 @@ Poniżej przedstawiono endpointy wraz z metodami:
    "Name": "group_2022_2",
 }
 ```
+#### Edytuj obiekt typu Group
+
+```http
+  PUT /api/departments/{departmentId}/groups/{groupId}
+```
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `departmentId`      | `int` | **Wymagane**. Id wydziału |
+| `groupId`           | `int` | **Wymagane**. Id grupy |
+
+| Body      | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `UpdateGroupDto` | serialized json | **Wymagane**. Dane tworzonego Deparamentu |
+
+#### Przykład body UpdateGroupDto
+```yaml
+{
+   "Name": "group_2022_2",
+}
+```
+
+#### Usuń obiekt typu Group o podanym Id
+```http
+  DELETE /api/departments/{departmentId}/groups/{groupId}
+```
+
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `departmentId`      | `int` | **Wymagane**. Id wydziału |
+| `groupId`      | `int` | **Wymagane**. Id grupy |
+
+#### Usuń wszystkie obiekty typu Group dla danego wydziału
+```http
+  DELETE /api/departments/{departmentId}/groups
+```
+
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `departmentId`      | `int` | **Wymagane**. Id wydziału |
 
 ### Students:
 
@@ -182,6 +249,39 @@ Poniżej przedstawiono endpointy wraz z metodami:
    "LastName": "Kowalski"
 }
 ```
+
+#### Edytuj obiekt typu Student
+
+```http
+  PUT /api/departments/{departmentId}/groups/{groupId}/students/{id}
+```
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `departmentId`      | `int` | **Wymagane**. Id wydziału |
+| `groupId`           | `int` | **Wymagane**. Id grupy |
+| `id`           | `int` | **Wymagane**. Id studenta |
+
+| Body      | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `UpdateStudentDto` | serialized json | **Wymagane**. Dane tworzonej grupy  |
+
+#### Przykład body UpdateStudentDto
+```yaml
+{
+   "FirstName": "Jan",
+   "LastName": "Kowalski"
+}
+```
+
+#### Usuń obiekt typu Student o podanym Id
+```http
+  DELETE /api/students/{id}
+```
+
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `int` | **Wymagane**. Id studenta |
+
 
 ### Marks:
 
@@ -229,8 +329,40 @@ Poniżej przedstawiono endpointy wraz z metodami:
    "MarkValue": 5
 }
 ```
+#### Edytuj obiekt typu Mark
+
+```http
+  PUT /api/students/{studentId}/marks/{id}
+```
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `studentId`      | `int` | **Wymagane**. Id studenta |
+| `id`      | `int` | **Wymagane**. Id oceny |
 
 
+| Body      | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `UpdateMarkDto` | serialized json | **Wymagane**. Dane tworzonej oceny  |
+
+#### Przykład body UpdateMarkDto
+```yaml
+{
+   "DateOfIssue": "2022-01-01:14:42:34",
+   "SubjectId": 41,
+   "Description": "This is a mark!",
+   "StudentId": 132412,
+   "MarkValue": 5
+}
+```
+#### Usuń obiekt typu Mark o podanym Id
+```http
+  DELETE /api/students/{studentId}/marks/{id}
+```
+
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `studentId`      | `int` | **Wymagane**. Id studenta |
+| `id`      | `int` | **Wymagane**. Id oceny |
 ### Subjects:
 
 #### Wyświetl wszystkie obiekty typu Subject:
@@ -271,3 +403,35 @@ Poniżej przedstawiono endpointy wraz z metodami:
    "TeacherId": 5
 }
 ```
+
+#### Edytuj obiekt typu Subject
+
+```http
+  PUT /api/subjects
+```
+
+| Body      | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `UpdateSubjectDto` | serialized json | **Wymagane**. Dane tworzonego przedmiotu  |
+
+#### Przykład body UpdateSubjectDto
+```yaml
+{
+   "Name": "Projekt zespołowy",
+   "Description": "This is a subject",
+   "StartTime": "2022-01-01:14:42:34",
+   "EndTime": "2022-01-01:15:42:34",
+   "WeekDaysId": 3,
+   "ECTS": 4,
+   "TeacherId": 5
+}
+```
+
+#### Usuń obiekt typu Subject o podanym Id
+```http
+  DELETE /api/subjects/{id}
+```
+
+| Parametr | Typ     | Opis                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `int` | **Wymagane**. Id przedmiotu |
