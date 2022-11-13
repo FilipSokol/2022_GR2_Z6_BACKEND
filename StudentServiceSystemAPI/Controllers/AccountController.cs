@@ -16,15 +16,17 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpPost("register")]
-        public Task<ActionResult> RegisterUser([FromBody]RegisterUserDto dto)
+        public ActionResult RegisterUser([FromBody]RegisterUserDto dto)
         {
-            throw new NotImplementedException();
+            this.accountService.RegisterUser(dto);
+            return Ok();
         }
 
         [HttpPost("login")]
-        public Task<ActionResult> Login([FromBody]LoginDto dto)
+        public ActionResult Login([FromBody]LoginDto dto)
         {
-            throw new NotImplementedException();
+            string token = this.accountService.GenerateJwt(dto);
+            return Ok(new { Token = token });
         }
     }
 }

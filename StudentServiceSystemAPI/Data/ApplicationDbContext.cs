@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StudentServiceSystemAPI.Entities;
 using StudentServiceSystemAPI.Models;
 
 namespace StudentServiceSystemAPI.Data
@@ -15,32 +16,20 @@ namespace StudentServiceSystemAPI.Data
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<WeekDays> WeekDays { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Department>().Ignore(t => t.Groups);
 
             modelBuilder.Entity<Group>()
                 .HasOne(s => s.Schedule)
                 .WithOne(g => g.Group)
-                .HasForeignKey<Schedule>(s => s.GroupId);
-
-            //modelBuilder.Entity<Group>().HasOne(d => d.Department).WithMany(g => g.Groups).HasForeignKey(d => d.DepartmentId);
-
-            ////modelBuilder.Entity<Group>().Ignore(t => t.Students);
-
-            //modelBuilder.Entity<Student>().HasOne(g => g.Group).WithMany(s => s.Students).HasForeignKey(g => g.GroupId);
-
-            ////modelBuilder.Entity<Student>().Ignore(t => t.Marks);
-
-            //modelBuilder.Entity<Mark>().HasOne(s => s.Student).WithMany(m => m.Marks).HasForeignKey(s => s.StudentId);
-
-            //modelBuilder.Entity<Mark>().HasOne(s => s.Subject).WithMany(m => m.Marks).HasForeignKey(s => s.SubjectId);
-
-            //modelBuilder.Entity<Subject>().Ignore(t => t.Marks);
+                .HasForeignKey<Schedule>(s => s.GroupId); 
 
             Initialize(modelBuilder);
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
