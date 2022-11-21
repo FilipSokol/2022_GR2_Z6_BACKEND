@@ -8,5 +8,6 @@
         public string? City { get; set; }
         public string? PostalCode { get; set; }
         public virtual List<Group> Groups { get; set; }
+        public virtual List<Teacher> Teachers { get; set; }
     }
 }

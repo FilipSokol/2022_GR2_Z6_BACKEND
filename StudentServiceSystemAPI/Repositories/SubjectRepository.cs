@@ -71,14 +71,19 @@ namespace StudentServiceSystemAPI.Repositories
 
             if (subject is null) throw new NullReferenceException("Subject not found");
 
+            //if (Enum.GetValues<SubjectType>().ToList().Contains(Enum.TryParse<SubjectType>(dto.Type)))
+            //{
+
+            //}
+
             subject.Name = dto.Name;
             subject.Description = dto.Description;
             subject.StartTime = dto.StartTime;
             subject.EndTime = dto.EndTime;
             subject.WeekDaysId = dto.WeekDaysId;
             subject.ECTS = dto.ECTS;
+            subject.Type = (SubjectType)Enum.Parse(typeof(SubjectType), dto.Type); 
             subject.TeacherId = dto.TeacherId;
-
             await this.context.SaveChangesAsync();
         }
     }

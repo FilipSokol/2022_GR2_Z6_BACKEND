@@ -224,22 +224,22 @@ namespace StudentServiceSystemAPI.Data
                 new Teacher
                 {
                     TeacherId = 1,
-                    Name = "Jan",
-                    Surname = "Kowalski",
+                    FirstName = "Jan",
+                    LastName = "Kowalski",
                     Email = "kowalski@teacher.com"
                 },
                  new Teacher
                 {
                     TeacherId = 2,
-                    Name = "Adam",
-                    Surname = "Nowak",
+                    FirstName = "Adam",
+                    LastName = "Nowak",
                     Email = "nowak@teacher.com"
                 },
                  new Teacher
                 {
                     TeacherId = 3,
-                    Name = "Michał",
-                    Surname = "Monitor",
+                    FirstName = "Michał",
+                    LastName = "Monitor",
                     Email = "monitor@teacher.com"
                 }
                 );

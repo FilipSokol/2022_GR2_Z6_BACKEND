@@ -1,14 +1,11 @@
-﻿namespace StudentServiceSystemAPI.Models
+﻿namespace StudentServiceSystemAPI.DtoModels
 {
-    public class Teacher
+    public class TeacherDto
     {
         public int TeacherId { get; set; }
         public int DepartmentId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public virtual Department Department { get; set; }
-        public virtual List<Subject> Subjects { get; set; }
-
     }
 }

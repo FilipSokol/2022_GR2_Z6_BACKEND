@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentServiceSystemAPI.Data;
 
@@ -11,9 +12,10 @@ using StudentServiceSystemAPI.Data;
 namespace StudentServiceSystemAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221121201211_AdjustTeacher")]
+    partial class AdjustTeacher
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,7 +169,7 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             MarkId = 1,
-                            DateOfIssue = new DateTime(2022, 11, 21, 22, 16, 6, 908, DateTimeKind.Local).AddTicks(8586),
+                            DateOfIssue = new DateTime(2022, 11, 21, 21, 12, 11, 172, DateTimeKind.Local).AddTicks(8726),
                             Description = "desc",
                             MarkValue = 5.0,
                             StudentId = 1,
@@ -176,7 +178,7 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             MarkId = 2,
-                            DateOfIssue = new DateTime(2022, 11, 21, 22, 16, 6, 908, DateTimeKind.Local).AddTicks(8789),
+                            DateOfIssue = new DateTime(2022, 11, 21, 21, 12, 11, 172, DateTimeKind.Local).AddTicks(8763),
                             Description = "desc",
                             MarkValue = 4.0,
                             StudentId = 2,
@@ -185,7 +187,7 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             MarkId = 3,
-                            DateOfIssue = new DateTime(2022, 11, 21, 22, 16, 6, 908, DateTimeKind.Local).AddTicks(8794),
+                            DateOfIssue = new DateTime(2022, 11, 21, 21, 12, 11, 172, DateTimeKind.Local).AddTicks(8765),
                             Description = "desc",
                             MarkValue = 3.0,
                             StudentId = 1,
@@ -194,7 +196,7 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             MarkId = 4,
-                            DateOfIssue = new DateTime(2022, 11, 21, 22, 16, 6, 908, DateTimeKind.Local).AddTicks(8800),
+                            DateOfIssue = new DateTime(2022, 11, 21, 21, 12, 11, 172, DateTimeKind.Local).AddTicks(8767),
                             Description = "desc",
                             MarkValue = 4.0,
                             StudentId = 3,
@@ -312,7 +314,7 @@ namespace StudentServiceSystemAPI.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("TeacherId")
+                    b.Property<int>("TeacherId")
                         .HasColumnType("int");
 
                     b.Property<int>("Type")
@@ -335,9 +337,9 @@ namespace StudentServiceSystemAPI.Migrations
                             SubjectId = 1,
                             Description = "Biology subject",
                             ECTS = 0,
-                            EndTime = new DateTime(2022, 11, 21, 21, 16, 6, 908, DateTimeKind.Utc).AddTicks(8501),
+                            EndTime = new DateTime(2022, 11, 21, 20, 12, 11, 172, DateTimeKind.Utc).AddTicks(8693),
                             Name = "Biology",
-                            StartTime = new DateTime(2022, 11, 21, 21, 16, 6, 908, DateTimeKind.Utc).AddTicks(8498),
+                            StartTime = new DateTime(2022, 11, 21, 20, 12, 11, 172, DateTimeKind.Utc).AddTicks(8690),
                             TeacherId = 1,
                             Type = 3,
                             WeekDaysId = 1
@@ -347,9 +349,9 @@ namespace StudentServiceSystemAPI.Migrations
                             SubjectId = 2,
                             Description = "Math subject",
                             ECTS = 0,
-                            EndTime = new DateTime(2022, 11, 21, 21, 16, 6, 908, DateTimeKind.Utc).AddTicks(8502),
+                            EndTime = new DateTime(2022, 11, 21, 20, 12, 11, 172, DateTimeKind.Utc).AddTicks(8695),
                             Name = "Math",
-                            StartTime = new DateTime(2022, 11, 21, 21, 16, 6, 908, DateTimeKind.Utc).AddTicks(8502),
+                            StartTime = new DateTime(2022, 11, 21, 20, 12, 11, 172, DateTimeKind.Utc).AddTicks(8695),
                             TeacherId = 2,
                             Type = 3,
                             WeekDaysId = 1
@@ -359,9 +361,9 @@ namespace StudentServiceSystemAPI.Migrations
                             SubjectId = 3,
                             Description = "Computer Science subject",
                             ECTS = 0,
-                            EndTime = new DateTime(2022, 11, 21, 21, 16, 6, 908, DateTimeKind.Utc).AddTicks(8503),
+                            EndTime = new DateTime(2022, 11, 21, 20, 12, 11, 172, DateTimeKind.Utc).AddTicks(8696),
                             Name = "Computer Science",
-                            StartTime = new DateTime(2022, 11, 21, 21, 16, 6, 908, DateTimeKind.Utc).AddTicks(8503),
+                            StartTime = new DateTime(2022, 11, 21, 20, 12, 11, 172, DateTimeKind.Utc).AddTicks(8696),
                             TeacherId = 3,
                             Type = 3,
                             WeekDaysId = 1
@@ -375,9 +377,6 @@ namespace StudentServiceSystemAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeacherId"), 1L, 1);
-
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -393,15 +392,12 @@ namespace StudentServiceSystemAPI.Migrations
 
                     b.HasKey("TeacherId");
 
-                    b.HasIndex("DepartmentId");
-
                     b.ToTable("Teachers");
 
                     b.HasData(
                         new
                         {
                             TeacherId = 1,
-                            DepartmentId = 0,
                             Email = "kowalski@teacher.com",
                             FirstName = "Jan",
                             LastName = "Kowalski"
@@ -409,7 +405,6 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             TeacherId = 2,
-                            DepartmentId = 0,
                             Email = "nowak@teacher.com",
                             FirstName = "Adam",
                             LastName = "Nowak"
@@ -417,7 +412,6 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             TeacherId = 3,
-                            DepartmentId = 0,
                             Email = "monitor@teacher.com",
                             FirstName = "Michał",
                             LastName = "Monitor"
@@ -585,7 +579,9 @@ namespace StudentServiceSystemAPI.Migrations
                 {
                     b.HasOne("StudentServiceSystemAPI.Models.Teacher", "Teacher")
                         .WithMany("Subjects")
-                        .HasForeignKey("TeacherId");
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("StudentServiceSystemAPI.Models.WeekDays", null)
                         .WithMany("Subjects")
@@ -594,17 +590,6 @@ namespace StudentServiceSystemAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("StudentServiceSystemAPI.Models.Teacher", b =>
-                {
-                    b.HasOne("StudentServiceSystemAPI.Models.Department", "Department")
-                        .WithMany("Teachers")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("StudentServiceSystemAPI.Models.User", b =>
@@ -628,8 +613,6 @@ namespace StudentServiceSystemAPI.Migrations
             modelBuilder.Entity("StudentServiceSystemAPI.Models.Department", b =>
                 {
                     b.Navigation("Groups");
-
-                    b.Navigation("Teachers");
                 });
 
             modelBuilder.Entity("StudentServiceSystemAPI.Models.Group", b =>

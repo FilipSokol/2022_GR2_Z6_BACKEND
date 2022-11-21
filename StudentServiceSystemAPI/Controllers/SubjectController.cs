@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Models;
 using StudentServiceSystemAPI.Repositories;
@@ -10,23 +11,30 @@ namespace StudentServiceSystemAPI.Controllers
     public class SubjectController : ControllerBase
     {
         private readonly ISubjectRepository subjectRepository;
+        private readonly IMapper mapper;
 
-        public SubjectController(ISubjectRepository subjectRepository)
+        public SubjectController(ISubjectRepository subjectRepository, IMapper mapper)
         {
             this.subjectRepository = subjectRepository;
+            this.mapper = mapper;
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Subject>> GetById([FromRoute] int id)
         {
             var subject = await this.subjectRepository.GetById(id);
-            return Ok(subject);
+
+            var subjectDto = this.mapper.Map<SubjectDto>(subject);
+
+            return Ok(subjectDto);
         }
         [HttpGet]
         public async Task<ActionResult<List<Subject>>> GetAll()
         {
             var subjects = await this.subjectRepository.GetAll();
-            return Ok(subjects);
+
+            var subjectsDto = this.mapper.Map<List<SubjectDto>>(subjects);
+            return Ok(subjectsDto);
         }
         [HttpPost]
         public async Task<ActionResult<int>> Create([FromBody]CreateSubjectDto dto)

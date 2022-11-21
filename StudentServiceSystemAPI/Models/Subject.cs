@@ -9,8 +9,8 @@
         public DateTime EndTime { get; set; }
         public int WeekDaysId { get; set; }
         public int ECTS { get; set; }
-        public int TeacherId { get; set; }
-
+        public int? TeacherId { get; set; }
+        public SubjectType Type { get; set; } = SubjectType.Unknown;
         public virtual Teacher Teacher { get; set; }
         public List<Mark> Marks { get; set; }
 
