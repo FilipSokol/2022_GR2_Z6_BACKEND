@@ -13,7 +13,8 @@ namespace StudentServiceSystemAPI.MappingProfiles
             CreateMap<CreateGroupDto, Group>();
             CreateMap<CreateMarkDto, Mark>();
             CreateMap<CreateStudentDto, Student>();
-            CreateMap<CreateSubjectDto, Subject>();
+            CreateMap<CreateSubjectDto, Subject>()
+                .ForMember(x => x.Type, c => c.MapFrom(dto => dto.Type.ToString()));
             CreateMap<Subject, SubjectDto>()
                 .ForMember(x => x.Type, c => c.MapFrom(dto => dto.Type.ToString()));
             CreateMap<CreateTeacherDto, Teacher>();
