@@ -47,7 +47,7 @@ Poniżej zamieszczone są główne klasy wykorzystane w części Backendu.
 <a name="model-bazy"></a>
 Model
 
-![alt text](https://raw.githubusercontent.com/FilipSokol/2022_GR2_Z6_BACKEND/master/Img/database_model.png)
+![alt text](https://raw.githubusercontent.com/FilipSokol/2022_GR2_Z6_BACKEND/master/Img/database_model2.png)
 ## Model Architektury
 <a name="model_architektury"></a>
 ![alt text](https://raw.githubusercontent.com/FilipSokol/2022_GR2_Z6_BACKEND/master/Img/Architecture.png)
