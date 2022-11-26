@@ -80,7 +80,6 @@ namespace StudentServiceSystemAPI.Repositories
             subject.Description = dto.Description;
             subject.StartTime = dto.StartTime;
             subject.EndTime = dto.EndTime;
-            subject.WeekDaysId = dto.WeekDaysId;
             subject.ECTS = dto.ECTS;
             subject.Type = (SubjectType)Enum.Parse(typeof(SubjectType), dto.Type); 
             subject.TeacherId = dto.TeacherId;

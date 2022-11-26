@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentServiceSystemAPI.Data;
 
@@ -11,9 +12,10 @@ using StudentServiceSystemAPI.Data;
 namespace StudentServiceSystemAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221126175501_DeleteWeekdays")]
+    partial class DeleteWeekdays
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,7 +169,7 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             MarkId = 1,
-                            DateOfIssue = new DateTime(2022, 11, 26, 18, 59, 26, 927, DateTimeKind.Local).AddTicks(2840),
+                            DateOfIssue = new DateTime(2022, 11, 26, 18, 55, 1, 213, DateTimeKind.Local).AddTicks(8113),
                             Description = "desc",
                             MarkValue = 5.0,
                             StudentId = 1,
@@ -176,7 +178,7 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             MarkId = 2,
-                            DateOfIssue = new DateTime(2022, 11, 26, 18, 59, 26, 927, DateTimeKind.Local).AddTicks(2874),
+                            DateOfIssue = new DateTime(2022, 11, 26, 18, 55, 1, 213, DateTimeKind.Local).AddTicks(8168),
                             Description = "desc",
                             MarkValue = 4.0,
                             StudentId = 2,
@@ -185,7 +187,7 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             MarkId = 3,
-                            DateOfIssue = new DateTime(2022, 11, 26, 18, 59, 26, 927, DateTimeKind.Local).AddTicks(2876),
+                            DateOfIssue = new DateTime(2022, 11, 26, 18, 55, 1, 213, DateTimeKind.Local).AddTicks(8171),
                             Description = "desc",
                             MarkValue = 3.0,
                             StudentId = 1,
@@ -194,7 +196,7 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             MarkId = 4,
-                            DateOfIssue = new DateTime(2022, 11, 26, 18, 59, 26, 927, DateTimeKind.Local).AddTicks(2878),
+                            DateOfIssue = new DateTime(2022, 11, 26, 18, 55, 1, 213, DateTimeKind.Local).AddTicks(8173),
                             Description = "desc",
                             MarkValue = 4.0,
                             StudentId = 3,
@@ -342,10 +344,9 @@ namespace StudentServiceSystemAPI.Migrations
                             SubjectId = 1,
                             Description = "Biology subject",
                             ECTS = 0,
-                            EndTime = new DateTime(2022, 11, 26, 17, 59, 26, 927, DateTimeKind.Utc).AddTicks(2755),
+                            EndTime = new DateTime(2022, 11, 26, 17, 55, 1, 213, DateTimeKind.Utc).AddTicks(8065),
                             Name = "Biology",
-                            ScheduleId = 1,
-                            StartTime = new DateTime(2022, 11, 26, 17, 59, 26, 927, DateTimeKind.Utc).AddTicks(2753),
+                            StartTime = new DateTime(2022, 11, 26, 17, 55, 1, 213, DateTimeKind.Utc).AddTicks(8060),
                             TeacherId = 1,
                             Type = 3
                         },
@@ -354,10 +355,9 @@ namespace StudentServiceSystemAPI.Migrations
                             SubjectId = 2,
                             Description = "Math subject",
                             ECTS = 0,
-                            EndTime = new DateTime(2022, 11, 26, 17, 59, 26, 927, DateTimeKind.Utc).AddTicks(2808),
+                            EndTime = new DateTime(2022, 11, 26, 17, 55, 1, 213, DateTimeKind.Utc).AddTicks(8067),
                             Name = "Math",
-                            ScheduleId = 1,
-                            StartTime = new DateTime(2022, 11, 26, 17, 59, 26, 927, DateTimeKind.Utc).AddTicks(2808),
+                            StartTime = new DateTime(2022, 11, 26, 17, 55, 1, 213, DateTimeKind.Utc).AddTicks(8067),
                             TeacherId = 2,
                             Type = 3
                         },
@@ -366,10 +366,9 @@ namespace StudentServiceSystemAPI.Migrations
                             SubjectId = 3,
                             Description = "Computer Science subject",
                             ECTS = 0,
-                            EndTime = new DateTime(2022, 11, 26, 17, 59, 26, 927, DateTimeKind.Utc).AddTicks(2810),
+                            EndTime = new DateTime(2022, 11, 26, 17, 55, 1, 213, DateTimeKind.Utc).AddTicks(8069),
                             Name = "Computer Science",
-                            ScheduleId = 1,
-                            StartTime = new DateTime(2022, 11, 26, 17, 59, 26, 927, DateTimeKind.Utc).AddTicks(2809),
+                            StartTime = new DateTime(2022, 11, 26, 17, 55, 1, 213, DateTimeKind.Utc).AddTicks(8068),
                             TeacherId = 3,
                             Type = 3
                         });

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using StudentServiceSystemAPI.Data;
 using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Models;
 
@@ -19,6 +20,8 @@ namespace StudentServiceSystemAPI.MappingProfiles
                 .ForMember(x => x.Type, c => c.MapFrom(dto => dto.Type.ToString()));
             CreateMap<CreateTeacherDto, Teacher>();
             CreateMap<Teacher, TeacherDto>();
+            CreateMap<Schedule, ScheduleDto>();
+            CreateMap<ScheduleDto, Schedule>();
         }
     }
 }

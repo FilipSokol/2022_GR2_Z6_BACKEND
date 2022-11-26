@@ -15,7 +15,6 @@ namespace StudentServiceSystemAPI.Data
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<WeekDays> WeekDays { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
 
@@ -26,7 +25,14 @@ namespace StudentServiceSystemAPI.Data
             modelBuilder.Entity<Group>()
                 .HasOne(s => s.Schedule)
                 .WithOne(g => g.Group)
-                .HasForeignKey<Schedule>(s => s.GroupId); 
+                .HasForeignKey<Schedule>(s => s.GroupId);
+
+            ////modelBuilder.Entity<Schedule>()
+            ////    .HasData(new[] {
+            ////    new Schedule {
+            ////        Id = 1
+            ////    } 
+            ////    });
 
             Initialize(modelBuilder);
 
@@ -116,6 +122,7 @@ namespace StudentServiceSystemAPI.Data
                     StudentId = 1,
                     FirstName = "Jan",
                     LastName = "Kowalski",
+                    Email = "jan@kowalski.com",
                     GroupId = 1
                 },
                 new Student
@@ -123,6 +130,7 @@ namespace StudentServiceSystemAPI.Data
                     StudentId = 2,
                     FirstName = "Adam",
                     LastName = "Nowak",
+                    Email = "adam@nowak.com",
                     GroupId = 2
                 },
                 new Student
@@ -130,60 +138,11 @@ namespace StudentServiceSystemAPI.Data
                     StudentId = 3,
                     FirstName = "Arek",
                     LastName = "Kedziora",
+                    Email = "arek@kedziora.com",
                     GroupId = 3
-                }
-
-                );
+                });
 
            
-
-            modelBuilder.Entity<WeekDays>().HasData(
-                new WeekDays
-                {
-                    Id = 1,
-                    Name = "Monday",
-                    ScheduleId = 1,
-
-                },
-                new WeekDays
-                {
-                    Id = 2,
-                    Name = "Tuesday",
-                    ScheduleId = 1
-                },
-                new WeekDays
-                {
-                    Id = 3,
-                    Name = "Wednesday",
-                    ScheduleId = 1,
-                },
-                new WeekDays
-                {
-                    Id = 4,
-                    Name = "Thursday",
-                    ScheduleId = 1,
-                },
-                new WeekDays
-                {
-                    Id = 5,
-                    Name = "Friday",
-                    ScheduleId = 1,
-                },
-                new WeekDays
-                {
-                    Id = 6,
-                    Name = "Saturday",
-                    ScheduleId = 1,
-                },
-                new WeekDays
-                {
-                    Id = 7,
-                    Name = "Sunday",
-                    ScheduleId = 1,
-                }
-                );
-
-
             modelBuilder.Entity<Subject>().HasData(
 
                 new Subject
@@ -191,9 +150,9 @@ namespace StudentServiceSystemAPI.Data
                     SubjectId = 1,
                     Description = "Biology subject",
                     Name = "Biology",
+                    ScheduleId = 1,
                     StartTime = DateTime.UtcNow,
                     EndTime = DateTime.UtcNow,
-                    WeekDaysId = 1,
                     TeacherId = 1
                     
                 },
@@ -202,9 +161,9 @@ namespace StudentServiceSystemAPI.Data
                     SubjectId = 2,
                     Description = "Math subject",
                     Name = "Math",
+                    ScheduleId = 1,
                     StartTime = DateTime.UtcNow,
                     EndTime = DateTime.UtcNow,
-                    WeekDaysId = 1,
                     TeacherId = 2
                 },
                 new Subject
@@ -213,8 +172,8 @@ namespace StudentServiceSystemAPI.Data
                     Description = "Computer Science subject",
                     Name = "Computer Science",
                     StartTime = DateTime.UtcNow,
+                    ScheduleId = 1,
                     EndTime = DateTime.UtcNow,
-                    WeekDaysId = 1,
                     TeacherId = 3
                 }
 
