@@ -185,22 +185,25 @@ namespace StudentServiceSystemAPI.Data
                     TeacherId = 1,
                     FirstName = "Jan",
                     LastName = "Kowalski",
-                    Email = "kowalski@teacher.com"
+                    Email = "kowalski@teacher.com",
+                    DepartmentId = 1
                 },
                  new Teacher
-                {
-                    TeacherId = 2,
-                    FirstName = "Adam",
-                    LastName = "Nowak",
-                    Email = "nowak@teacher.com"
-                },
+                 {
+                     TeacherId = 2,
+                     FirstName = "Adam",
+                     LastName = "Nowak",
+                     Email = "nowak@teacher.com",
+                     DepartmentId = 1
+                 },
                  new Teacher
-                {
-                    TeacherId = 3,
-                    FirstName = "Michał",
-                    LastName = "Monitor",
-                    Email = "monitor@teacher.com"
-                }
+                 {
+                     TeacherId = 3,
+                     FirstName = "Michał",
+                     LastName = "Monitor",
+                     Email = "monitor@teacher.com",
+                     DepartmentId = 1
+                 }
                 );
 
             modelBuilder.Entity<Mark>().HasData(

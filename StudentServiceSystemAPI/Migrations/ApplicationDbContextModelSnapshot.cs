@@ -167,7 +167,7 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             MarkId = 1,
-                            DateOfIssue = new DateTime(2022, 11, 26, 18, 59, 26, 927, DateTimeKind.Local).AddTicks(2840),
+                            DateOfIssue = new DateTime(2022, 11, 26, 20, 12, 19, 510, DateTimeKind.Local).AddTicks(2126),
                             Description = "desc",
                             MarkValue = 5.0,
                             StudentId = 1,
@@ -176,7 +176,7 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             MarkId = 2,
-                            DateOfIssue = new DateTime(2022, 11, 26, 18, 59, 26, 927, DateTimeKind.Local).AddTicks(2874),
+                            DateOfIssue = new DateTime(2022, 11, 26, 20, 12, 19, 510, DateTimeKind.Local).AddTicks(2160),
                             Description = "desc",
                             MarkValue = 4.0,
                             StudentId = 2,
@@ -185,7 +185,7 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             MarkId = 3,
-                            DateOfIssue = new DateTime(2022, 11, 26, 18, 59, 26, 927, DateTimeKind.Local).AddTicks(2876),
+                            DateOfIssue = new DateTime(2022, 11, 26, 20, 12, 19, 510, DateTimeKind.Local).AddTicks(2162),
                             Description = "desc",
                             MarkValue = 3.0,
                             StudentId = 1,
@@ -194,7 +194,7 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             MarkId = 4,
-                            DateOfIssue = new DateTime(2022, 11, 26, 18, 59, 26, 927, DateTimeKind.Local).AddTicks(2878),
+                            DateOfIssue = new DateTime(2022, 11, 26, 20, 12, 19, 510, DateTimeKind.Local).AddTicks(2164),
                             Description = "desc",
                             MarkValue = 4.0,
                             StudentId = 3,
@@ -342,10 +342,10 @@ namespace StudentServiceSystemAPI.Migrations
                             SubjectId = 1,
                             Description = "Biology subject",
                             ECTS = 0,
-                            EndTime = new DateTime(2022, 11, 26, 17, 59, 26, 927, DateTimeKind.Utc).AddTicks(2755),
+                            EndTime = new DateTime(2022, 11, 26, 19, 12, 19, 510, DateTimeKind.Utc).AddTicks(2089),
                             Name = "Biology",
                             ScheduleId = 1,
-                            StartTime = new DateTime(2022, 11, 26, 17, 59, 26, 927, DateTimeKind.Utc).AddTicks(2753),
+                            StartTime = new DateTime(2022, 11, 26, 19, 12, 19, 510, DateTimeKind.Utc).AddTicks(2086),
                             TeacherId = 1,
                             Type = 3
                         },
@@ -354,10 +354,10 @@ namespace StudentServiceSystemAPI.Migrations
                             SubjectId = 2,
                             Description = "Math subject",
                             ECTS = 0,
-                            EndTime = new DateTime(2022, 11, 26, 17, 59, 26, 927, DateTimeKind.Utc).AddTicks(2808),
+                            EndTime = new DateTime(2022, 11, 26, 19, 12, 19, 510, DateTimeKind.Utc).AddTicks(2091),
                             Name = "Math",
                             ScheduleId = 1,
-                            StartTime = new DateTime(2022, 11, 26, 17, 59, 26, 927, DateTimeKind.Utc).AddTicks(2808),
+                            StartTime = new DateTime(2022, 11, 26, 19, 12, 19, 510, DateTimeKind.Utc).AddTicks(2091),
                             TeacherId = 2,
                             Type = 3
                         },
@@ -366,10 +366,10 @@ namespace StudentServiceSystemAPI.Migrations
                             SubjectId = 3,
                             Description = "Computer Science subject",
                             ECTS = 0,
-                            EndTime = new DateTime(2022, 11, 26, 17, 59, 26, 927, DateTimeKind.Utc).AddTicks(2810),
+                            EndTime = new DateTime(2022, 11, 26, 19, 12, 19, 510, DateTimeKind.Utc).AddTicks(2092),
                             Name = "Computer Science",
                             ScheduleId = 1,
-                            StartTime = new DateTime(2022, 11, 26, 17, 59, 26, 927, DateTimeKind.Utc).AddTicks(2809),
+                            StartTime = new DateTime(2022, 11, 26, 19, 12, 19, 510, DateTimeKind.Utc).AddTicks(2092),
                             TeacherId = 3,
                             Type = 3
                         });
@@ -408,7 +408,7 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             TeacherId = 1,
-                            DepartmentId = 0,
+                            DepartmentId = 1,
                             Email = "kowalski@teacher.com",
                             FirstName = "Jan",
                             LastName = "Kowalski"
@@ -416,7 +416,7 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             TeacherId = 2,
-                            DepartmentId = 0,
+                            DepartmentId = 1,
                             Email = "nowak@teacher.com",
                             FirstName = "Adam",
                             LastName = "Nowak"
@@ -424,7 +424,7 @@ namespace StudentServiceSystemAPI.Migrations
                         new
                         {
                             TeacherId = 3,
-                            DepartmentId = 0,
+                            DepartmentId = 1,
                             Email = "monitor@teacher.com",
                             FirstName = "Michał",
                             LastName = "Monitor"
