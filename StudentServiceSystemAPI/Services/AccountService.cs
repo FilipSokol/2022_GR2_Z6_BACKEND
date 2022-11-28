@@ -38,7 +38,6 @@ namespace StudentServiceSystemAPI.Services
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
                 new Claim(ClaimTypes.Role, $"{user.Role.Name}"),
                 new Claim("DateOfBirth", user.DateOfBirth.Value.ToString("yyyy-MM-dd")),
                 new Claim("Province", user.Province),
@@ -65,6 +64,7 @@ namespace StudentServiceSystemAPI.Services
                 claims.Add(new Claim("DepartmentId", group.DepartmentId.ToString()));
                 claims.Add(new Claim("GroupId", student.GroupId.ToString()));
                 claims.Add(new Claim("StudentId", student.StudentId.ToString()));
+                claims.Add(new Claim(ClaimTypes.Name, $"{student.FirstName} {student.LastName}"));
             }
 
             if (user.Role.Name == "Teacher")
@@ -85,6 +85,7 @@ namespace StudentServiceSystemAPI.Services
 
                 claims.Add(new Claim("DepartmentId", teacher.DepartmentId.ToString()));
                 claims.Add(new Claim("TeacherId", teacher.TeacherId.ToString()));
+                claims.Add(new Claim(ClaimTypes.Name, $"{teacher.FirstName} {teacher.LastName}"));
 
             }
             
