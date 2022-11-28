@@ -9,6 +9,7 @@ namespace StudentServiceSystemAPI.DtoModels
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int WeekDaysId { get; set; }
+        public int ScheduleId { get; set; }
         public int ECTS { get; set; }
         public string Type { get; set; }
         public int TeacherId { get; set; }

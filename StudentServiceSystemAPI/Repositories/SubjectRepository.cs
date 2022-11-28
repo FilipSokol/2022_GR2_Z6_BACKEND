@@ -81,6 +81,7 @@ namespace StudentServiceSystemAPI.Repositories
             subject.StartTime = dto.StartTime;
             subject.EndTime = dto.EndTime;
             subject.ECTS = dto.ECTS;
+            subject.ScheduleId = dto.ScheduleId;
             subject.Type = (SubjectType)Enum.Parse(typeof(SubjectType), dto.Type); 
             subject.TeacherId = dto.TeacherId;
             await this.context.SaveChangesAsync();
