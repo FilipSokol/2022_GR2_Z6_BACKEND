@@ -1,4 +1,6 @@
-﻿namespace StudentServiceSystemAPI.Models
+﻿using StudentServiceSystemAPI.DtoModels;
+
+namespace StudentServiceSystemAPI.Models
 {
     public class Schedule
     {

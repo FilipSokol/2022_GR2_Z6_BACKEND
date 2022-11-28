@@ -52,7 +52,7 @@ namespace StudentServiceSystemAPI.Repositories
             return schedule;
         }
 
-        public async Task<Schedule> GetById(int groupId)
+        public async Task<List<SubjectDto>> GetById(int groupId)
         {
             var schedule = await this.context
                 .Schedules
@@ -61,10 +61,14 @@ namespace StudentServiceSystemAPI.Repositories
 
             if (schedule == null) throw new NullReferenceException("schedule does not exist");
 
-            return schedule;
+            var subjects = schedule.Subjects;
+
+            var subjectsDto = mapper.Map<List<SubjectDto>>(subjects);
+
+            return subjectsDto;
         }
 
-        public async Task<List<Subject>> GetPeriod(int groupId, GetPeriodDto period)
+        public async Task<List<SubjectDto>> GetPeriod(int groupId, GetPeriodDto period)
         {
             var schedule = await this.context
                 .Schedules
@@ -73,7 +77,9 @@ namespace StudentServiceSystemAPI.Repositories
 
             var subjectsInPeriod = schedule.Subjects.Where(x => x.StartTime >= period.startDate && x.EndTime <= period.endDate).ToList();
 
-            return subjectsInPeriod;
+            var subjectsInPeriodDto = mapper.Map<List<SubjectDto>>(subjectsInPeriod);
+
+            return subjectsInPeriodDto;
                 
         }
 
