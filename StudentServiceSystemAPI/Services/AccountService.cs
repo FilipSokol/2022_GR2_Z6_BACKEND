@@ -35,13 +35,6 @@ namespace StudentServiceSystemAPI.Services
                 throw new Exception("Invalid username or password");
             }
 
-            var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
-
-            if (result == PasswordVerificationResult.Failed)
-            {
-                throw new Exception("Invalid username or password");
-            }
-
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -49,8 +42,60 @@ namespace StudentServiceSystemAPI.Services
                 new Claim(ClaimTypes.Role, $"{user.Role.Name}"),
                 new Claim("DateOfBirth", user.DateOfBirth.Value.ToString("yyyy-MM-dd")),
                 new Claim("Province", user.Province),
-                new Claim("Nationality", user.Nationality)
+                new Claim("Nationality", user.Nationality),
             };
+
+
+            if (user.Role.Name == "Student")
+            {
+                var student = _context.Students.FirstOrDefault(x => x.Email == dto.Email);
+
+                if (student == null)
+                {
+                    throw new Exception("There is no student with provided email.");
+                }
+
+                var group = _context.Groups.FirstOrDefault(x => x.GroupId == student.GroupId);
+
+                if (group == null)
+                {
+                    throw new Exception("Such group does not exist.");
+                }
+
+                claims.Add(new Claim("DepartmentId", group.DepartmentId.ToString()));
+                claims.Add(new Claim("GroupId", student.GroupId.ToString()));
+                claims.Add(new Claim("StudentId", student.StudentId.ToString()));
+            }
+
+            if (user.Role.Name == "Teacher")
+            {
+                var teacher = _context.Teachers.FirstOrDefault(x => x.Email == dto.Email);
+                
+                if (teacher == null)
+                {
+                    throw new Exception("There is no teacher with provided email.");
+                }
+
+                var department = _context.Departments.FirstOrDefault(x => x.DepartmentId == teacher.DepartmentId);
+
+                if (department == null)
+                {
+                    throw new Exception("Such department does not exist.");
+                }
+
+                claims.Add(new Claim("DepartmentId", teacher.DepartmentId.ToString()));
+                claims.Add(new Claim("TeacherId", teacher.TeacherId.ToString()));
+
+            }
+            
+            var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
+
+            if (result == PasswordVerificationResult.Failed)
+            {
+                throw new Exception("Invalid username or password");
+            }
+
+  
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

@@ -32,11 +32,11 @@ namespace StudentServiceSystemAPI
             {
                 new Role()
                 {
-                    Name = "User"
+                    Name = "Student"
                 },
                 new Role()
                 {
-                    Name = "Manager"
+                    Name = "Teacher"
                 },
                 new Role()
                 {
