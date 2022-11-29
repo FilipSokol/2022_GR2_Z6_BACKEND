@@ -48,5 +48,18 @@ namespace StudentServiceSystemAPI.Controllers
             await this.markRepository.Update(id, mark);
             return Ok();
         }
+
+        [HttpPost("subject")]
+        public async Task<ActionResult> GetBySubjectName([FromRoute] int studentId, [FromBody] string name)
+        {
+            var subjectName = await this.markRepository.GetBySubjectName(studentId, name);
+
+            if (subjectName is null)
+            {
+                throw new NullReferenceException("There is no subject with such name");
+            }
+
+            return Ok(subjectName);
+        }
     }
 }

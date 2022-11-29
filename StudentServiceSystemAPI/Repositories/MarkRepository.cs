@@ -80,5 +80,19 @@ namespace StudentServiceSystemAPI.Repositories
 
             await this.context.SaveChangesAsync();
         }
+
+        public async Task<List<MarkDto>> GetBySubjectName(int studentId, string name)
+        {
+            var marks = await this.context
+                .Marks
+                .Where(x => x.Subject.Name == name && x.StudentId == studentId)
+                .ToListAsync();
+
+            if (marks == null) throw new NullReferenceException($"Subject {name} does not contain any marks");
+
+            var marksDto = mapper.Map<List<MarkDto>>(marks);
+
+            return marksDto;
+        }
     }
 }
