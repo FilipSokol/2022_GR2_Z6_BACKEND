@@ -38,10 +38,7 @@ namespace StudentServiceSystemAPI.Services
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Role, $"{user.Role.Name}"),
-                new Claim("DateOfBirth", user.DateOfBirth.Value.ToString("yyyy-MM-dd")),
-                new Claim("Province", user.Province),
-                new Claim("Nationality", user.Nationality),
+                new Claim(ClaimTypes.Role, $"{user.Role.Name}")
             };
 
 
@@ -130,6 +127,7 @@ namespace StudentServiceSystemAPI.Services
             var hashedPassword = _passwordHasher.HashPassword(newUser, dto.Password);
 
             newUser.PasswordHash = hashedPassword;
+
 
             _context.Users.Add(newUser);
             _context.SaveChanges();
