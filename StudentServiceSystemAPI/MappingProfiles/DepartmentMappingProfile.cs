@@ -24,6 +24,8 @@ namespace StudentServiceSystemAPI.MappingProfiles
             CreateMap<ScheduleDto, Schedule>();
             CreateMap<MarkDto, Mark>();
             CreateMap<Mark, MarkDto>();
+            CreateMap<Student, StudentDto>();
+            CreateMap<StudentDto, Student>();
         }
     }
 }

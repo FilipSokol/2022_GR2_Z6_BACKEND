@@ -48,7 +48,7 @@ namespace StudentServiceSystemAPI.Repositories
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<List<Student>> GetAll(int departmentId, int groupId)
+        public async Task<List<StudentDto>> GetAllByGroup(int departmentId, int groupId)
         {
 
             var group = await this.context
@@ -62,7 +62,20 @@ namespace StudentServiceSystemAPI.Repositories
                  .Where(x => x.GroupId == group.GroupId)                 
                  .ToListAsync();
 
-            return students;
+            var studentsDto = this.mapper.Map<List<StudentDto>>(students);
+
+            return studentsDto;
+        }
+        public async Task<List<StudentDto>> GetAll()
+        {
+
+            var students = await this.context
+                 .Students              
+                 .ToListAsync();
+
+            var studentsDto = this.mapper.Map<List<StudentDto>>(students);
+
+            return studentsDto;
         }
 
         public async Task<Student> GetById(int id)

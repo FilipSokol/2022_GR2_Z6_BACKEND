@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Models;
 using StudentServiceSystemAPI.Repositories;
@@ -11,6 +12,7 @@ namespace StudentServiceSystemAPI.Controllers
     public class StudentController : ControllerBase
     {
         private readonly IStudentRepository studentRepository;
+
         public StudentController(IStudentRepository studentRepository)
         {
             this.studentRepository = studentRepository;
@@ -24,11 +26,21 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Student>>> GetAll([FromRoute] int departmentId, [FromRoute] int groupId)
+        public async Task<ActionResult<List<Student>>> GetAllByGroup([FromRoute] int departmentId, [FromRoute] int groupId)
         {
-            var students = await this.studentRepository.GetAll(departmentId, groupId);
+            var students = await this.studentRepository.GetAllByGroup(departmentId, groupId);
             return Ok(students);
         }
+
+        [HttpGet]
+        [Route("/api/students")]
+        public async Task<ActionResult<List<StudentDto>>> GetAll()
+        {
+            var students = await this.studentRepository.GetAll();
+
+            return Ok(students);
+        }
+
         [HttpPost]
         public async Task<ActionResult<int>> Create([FromRoute] int departmentId, [FromRoute] int groupId, [FromBody] CreateStudentDto dto)
         {
