@@ -94,5 +94,31 @@ namespace StudentServiceSystemAPI.Repositories
 
             return marksDto;
         }
+
+        public async Task<List<GroupedMarkDto>> GetByTeacherIdAndSubjectName(int teacherId, string subjectName)
+        {
+            var teacher = await this.context
+                .Teachers
+                .Include(x => x.Subjects)
+                .ThenInclude(x => x.Marks)
+                .Where(x => x.Subjects.Any(x => x.Name == subjectName))
+                .FirstOrDefaultAsync(x => x.TeacherId == teacherId);
+
+            if (teacher == null) throw new NullReferenceException("teacher not found");
+
+            var subjectMarks = new List<MarkDto>();
+
+            foreach (var subject in teacher.Subjects)
+            {
+                subjectMarks.AddRange(mapper.Map<List<MarkDto>>(subject.Marks));
+            }
+
+            var groupedMarks = subjectMarks.GroupBy(x => x.StudentId).ToList();
+
+            var groupedMarksDto = mapper.Map<List<GroupedMarkDto>>(groupedMarks);
+
+            return groupedMarksDto;
+
+        }
     }
 }

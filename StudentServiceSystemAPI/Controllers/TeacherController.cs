@@ -38,7 +38,7 @@ namespace StudentServiceSystemAPI.Controllers
 
         [HttpGet]
         [Route("/api/departments/{departmentId}/teachers")]
-        public async Task<ActionResult<List<Student>>> GetByDepartmentId([FromRoute] int departmentId)
+        public async Task<ActionResult<List<TeacherDto>>> GetByDepartmentId([FromRoute] int departmentId)
         {
             var teachers = await this.teacherRepository.GetByDepartmentId(departmentId);
             var teachersDto = this.mapper.Map<List<TeacherDto>>(teachers);
