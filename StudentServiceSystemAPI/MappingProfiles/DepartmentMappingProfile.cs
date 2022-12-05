@@ -29,6 +29,9 @@ namespace StudentServiceSystemAPI.MappingProfiles
             CreateMap<IGrouping<int, MarkDto>, GroupedMarkDto>()
                 .ForMember(x => x.StudentId, c => c.MapFrom(dto => dto.Key))
                 .ForMember(x => x.Marks, c => c.MapFrom(dto => dto.ToList()));
+            CreateMap<IGrouping<string, Mark>, SubjectWithMarksDto>()
+                .ForMember(x => x.Name, c => c.MapFrom(dto => dto.Key))
+                .ForMember(x => x.Marks, c => c.MapFrom(dto => dto.Select(x => x.MarkValue).ToList()));
 
         }
     }

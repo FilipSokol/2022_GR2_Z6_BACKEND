@@ -52,6 +52,22 @@ namespace StudentServiceSystemAPI.Repositories
             return subjects;
         }
 
+        public async Task<List<SubjectWithMarksDto>> GetAllWithMarksByStudentId(int studentId)
+        {
+            var student = await this.context
+                .Students
+                .Include(x => x.Marks)
+                .ThenInclude(x => x.Subject)
+                .FirstOrDefaultAsync(x => x.StudentId == studentId);
+
+
+            var marks = student.Marks.GroupBy(x => x.Subject.Name).ToList();
+
+            var marksValues = mapper.Map<List<SubjectWithMarksDto>>(marks);
+            
+            return marksValues;
+        }
+
         public async Task<Subject> GetById(int id)
         {
             var subject = await this.context

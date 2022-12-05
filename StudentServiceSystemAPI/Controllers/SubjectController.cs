@@ -36,6 +36,15 @@ namespace StudentServiceSystemAPI.Controllers
             var subjectsDto = this.mapper.Map<List<SubjectDto>>(subjects);
             return Ok(subjectsDto);
         }
+
+        [HttpGet("{studentId}/student")]
+        public async Task<ActionResult<List<SubjectWithMarksDto>>> GetAllWithMarksByStudentId([FromRoute] int studentId)
+        {
+            var subjects = await this.subjectRepository.GetAllWithMarksByStudentId(studentId);
+
+            return Ok(subjects);
+        }
+
         [HttpPost]
         public async Task<ActionResult<int>> Create([FromBody]CreateSubjectDto dto)
         {
