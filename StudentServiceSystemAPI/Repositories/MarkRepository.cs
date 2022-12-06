@@ -43,7 +43,7 @@ namespace StudentServiceSystemAPI.Repositories
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<List<Mark>> GetAll(int studentId)
+        public async Task<List<MarkDto>> GetAll(int studentId)
         {
             var marks = await this.context
                 .Marks
@@ -52,10 +52,12 @@ namespace StudentServiceSystemAPI.Repositories
 
             if (marks == null) throw new NullReferenceException("Student does not have any marks");
 
-            return marks;
+            var marksDto = mapper.Map<List<MarkDto>>(marks);
+
+            return marksDto;
         }
 
-        public async Task<Mark> GetById(int studentId, int id)
+        public async Task<MarkDto> GetById(int studentId, int id)
         {
             var mark = await this.context
                  .Marks
@@ -63,7 +65,9 @@ namespace StudentServiceSystemAPI.Repositories
 
             if (mark == null) throw new NullReferenceException("Mark does not exist.");
 
-            return mark;
+            var markDto = mapper.Map<MarkDto>(mark);
+
+            return markDto;
         }
 
         public async Task Update(int id, UpdateMarkDto dto)

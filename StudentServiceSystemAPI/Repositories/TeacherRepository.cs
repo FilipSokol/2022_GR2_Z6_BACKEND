@@ -136,5 +136,32 @@ namespace StudentServiceSystemAPI.Repositories
 
             await this.context.SaveChangesAsync();
         }
+
+        public async Task<List<int>> GetAllTeacherGroups(int teacherId)
+        {
+            var groupIds = await this.context
+                .Subjects
+                .Where(x => x.TeacherId == teacherId)
+                .Select(x => (int) x.ScheduleId)
+                .ToListAsync();
+
+
+            if (groupIds == null)
+            {
+                throw new NullReferenceException("Groups not found");
+            }
+
+            var groups = await this.context
+                .Groups
+                .Where(x => groupIds.Contains(x.GroupId))
+                .ToListAsync();
+
+            if (groups == null)
+            {
+                throw new NullReferenceException("Groups not found");
+            }
+
+            return groups.Select(x => x.GroupId).ToList();
+        }
     }
 }

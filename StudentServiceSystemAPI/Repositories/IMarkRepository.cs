@@ -5,8 +5,8 @@ namespace StudentServiceSystemAPI.Repositories
 {
     public interface IMarkRepository
     {
-        Task<Mark> GetById(int studentId, int id);
-        Task<List<Mark>> GetAll(int studentId);
+        Task<MarkDto> GetById(int studentId, int id);
+        Task<List<MarkDto>> GetAll(int studentId);
         Task<int> Create(int studentId, CreateMarkDto dto);
         Task Delete(int id);
         Task Update(int id, UpdateMarkDto mark);

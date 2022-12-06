@@ -13,6 +13,7 @@ namespace StudentServiceSystemAPI.Repositories
         Task Update(int id, UpdateTeacherDto teacher);
         Task AssignSubject(int teacherId, int subjectId);
         Task UnassignSubject(int teacherId, int subjectId);
+        Task<List<int>> GetAllTeacherGroups(int teacherId);
 
     }
 }

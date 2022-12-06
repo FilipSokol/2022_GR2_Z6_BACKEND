@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Services;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace StudentServiceSystemAPI.Controllers
 {
@@ -16,6 +17,7 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpPost("register")]
+        [SwaggerOperation(Summary = "Register user")]
         public ActionResult RegisterUser([FromBody]RegisterUserDto dto)
         {
             this.accountService.RegisterUser(dto);
@@ -23,6 +25,7 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpPost("login")]
+        [SwaggerOperation(Summary = "Sign in")]
         public ActionResult Login([FromBody]LoginDto dto)
         {
             string token = this.accountService.GenerateJwt(dto);

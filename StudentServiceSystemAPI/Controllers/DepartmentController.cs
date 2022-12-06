@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Repositories;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace StudentServiceSystemAPI.Controllers
 {
@@ -16,6 +17,7 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Get department by Id.")]
         public async Task<ActionResult<DepartmentDto>> Get([FromRoute]int id)
         {
             var department = await this.departmentRepository.GetById(id);
@@ -23,6 +25,7 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpGet]
+        [SwaggerOperation(Summary = "Get all departments.")]
         public async Task<ActionResult<IEnumerable<DepartmentDto>>> Get()
         {
             var departments = await this.departmentRepository.GetAll();
@@ -30,6 +33,7 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(Summary = "Create department")]
         public async Task<ActionResult> CreateDepartment([FromBody] CreateDepartmentDto dto)
         {
             var id = await this.departmentRepository.Create(dto);
@@ -37,6 +41,7 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [SwaggerOperation(Summary = "Edit department")]
         public async Task<ActionResult> Update([FromBody] UpdateDepartmentDto dto, [FromRoute] int id)
         {
             await this.departmentRepository.Update(id, dto);
@@ -45,6 +50,7 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [SwaggerOperation(Summary = "Delete department by Id")]
         public async Task<ActionResult> Delete([FromRoute]int id)
         {
             await this.departmentRepository.Delete(id);

@@ -2,6 +2,7 @@
 using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Models;
 using StudentServiceSystemAPI.Repositories;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace StudentServiceSystemAPI.Controllers
 {
@@ -16,7 +17,9 @@ namespace StudentServiceSystemAPI.Controllers
             this.groupRepository = groupRepository;
         }
 
+
         [HttpGet("{groupId}")]
+        [SwaggerOperation(Summary = "Get group by departmentId and groupId")]
         public async Task<ActionResult<Group>> GetById([FromRoute]int departmentId, [FromRoute] int groupId)
         {
             var group = await this.groupRepository.GetById(departmentId, groupId);
@@ -24,6 +27,7 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpGet]
+        [SwaggerOperation(Summary = "Get all groups from department by departmentId")]
         public async Task<ActionResult<List<Group>>> GetAll([FromRoute] int departmentId)
         {
             var groups = await this.groupRepository.GetAll(departmentId);
@@ -31,6 +35,7 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(Summary = "Create group")]
         public async Task<ActionResult<int>> Create([FromRoute] int departmentId, [FromBody] CreateGroupDto group)
         {
             var id = await this.groupRepository.Create(departmentId, group);
@@ -38,6 +43,7 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpDelete]
+        [SwaggerOperation(Summary = "Remove all groups from department")]
         public async Task<ActionResult> RemoveAll([FromRoute] int departmentId)
         {
             await this.groupRepository.RemoveAll(departmentId);
@@ -45,6 +51,7 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpDelete("{groupId}")]
+        [SwaggerOperation(Summary = "Remove group from department")]
         public async Task<ActionResult> Remove([FromRoute] int departmentId, [FromRoute] int groupId)
         {
             await this.groupRepository.Remove(departmentId, groupId);
@@ -52,6 +59,7 @@ namespace StudentServiceSystemAPI.Controllers
         }
 
         [HttpPut("{groupId}")]
+        [SwaggerOperation(Summary = "Update group")]
         public async Task<ActionResult> Update([FromRoute] int departmentId, [FromRoute] int groupId, [FromBody] UpdateGroupDto group)
         {
             await this.groupRepository.Update(departmentId, groupId, group);
