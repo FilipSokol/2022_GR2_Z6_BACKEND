@@ -31,5 +31,14 @@ namespace StudentServiceSystemAPI.Controllers
             string token = this.accountService.GenerateJwt(dto);
             return Ok(new { Token = token });
         }
+
+
+        [HttpPost("role/{userId}")]
+        [SwaggerOperation(Summary = "Change role")]
+        public async Task<IActionResult> ChangeRole([FromRoute] int userId, [FromBody] string role)
+        {
+            await this.accountService.ChangeRole(userId, role);
+            return Ok();
+        }
     }
 }

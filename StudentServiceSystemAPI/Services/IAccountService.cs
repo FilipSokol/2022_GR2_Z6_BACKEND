@@ -6,5 +6,6 @@ namespace StudentServiceSystemAPI.Services
     {
         void RegisterUser(RegisterUserDto dto);
         string GenerateJwt(LoginDto dto);
+        Task ChangeRole(int userId, string role);
     }
 }

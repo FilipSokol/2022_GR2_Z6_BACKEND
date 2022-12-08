@@ -128,10 +128,31 @@ namespace StudentServiceSystemAPI.Services
 
             newUser.PasswordHash = hashedPassword;
 
-
             _context.Users.Add(newUser);
             _context.SaveChanges();
 
+        }
+
+        public async Task ChangeRole(int userId, string role)
+        {
+            var user = await this._context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+
+            if (user is null)
+            {
+                throw new NullReferenceException($"User with id {userId} does not exist.");
+            }
+
+            var userRole = await this._context.Roles.FirstOrDefaultAsync(x => x.Name == role);
+
+
+            if (userRole is null)
+            {
+                throw new NullReferenceException($"User role {role} does not exist.");
+            }
+
+            user.RoleId = userRole.Id;
+
+            await _context.SaveChangesAsync();
         }
     }
 }
