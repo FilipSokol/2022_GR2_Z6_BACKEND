@@ -65,5 +65,14 @@ namespace StudentServiceSystemAPI.Controllers
             await this.groupRepository.Update(departmentId, groupId, group);
             return Ok();
         }
+
+        [HttpGet]
+        [SwaggerOperation(Summary = "Get all subjects with students with marks")]
+        [Route("/api/groups/{groupId}/subjects")]
+        public async Task<ActionResult<List<SubjectsWithStudentsDto>>> GetSubjectsWithStudentsWithMarks([FromRoute] int groupId)
+        {
+            var group = await this.groupRepository.GetSubjectsWithStudentsWithMarks(groupId);
+            return Ok(group);
+        }
     }
 }

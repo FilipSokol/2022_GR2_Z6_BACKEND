@@ -32,7 +32,16 @@ namespace StudentServiceSystemAPI.MappingProfiles
             CreateMap<IGrouping<string, Mark>, SubjectWithMarksDto>()
                 .ForMember(x => x.Name, c => c.MapFrom(dto => dto.Key))
                 .ForMember(x => x.Marks, c => c.MapFrom(dto => dto.Select(x => x.MarkValue).ToList()));
+            CreateMap<ILookup<string, List<StudentWithMarksDto>>, SubjectsWithStudentsDto>()
+                .ForMember(x => x.Name, c => c.MapFrom(dto => dto.Select(x => x.Key)))
+                .ForMember(x => x.Students, c => c.MapFrom(dto => dto.ToList()));
 
+            CreateMap<Student, StudentWithMarksDto>()
+                .ForMember(x => x.Marks, c => c.MapFrom(dto => dto.Marks));
+
+            CreateMap<ILookup<string, List<StudentWithMarksDto>>, SubjectsWithStudentsDto>()
+                .ForMember(x => x.Name, c => c.MapFrom(dto => dto.Select(x => x.Key)))
+                .ForMember(x => x.Students, c => c.MapFrom(dto => dto.ToList()));
         }
     }
 }

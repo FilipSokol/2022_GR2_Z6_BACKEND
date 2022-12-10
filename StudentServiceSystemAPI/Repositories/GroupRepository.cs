@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentServiceSystemAPI.Data;
 using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Models;
+using System.Xml.Linq;
 
 namespace StudentServiceSystemAPI.Repositories
 {
@@ -86,6 +88,62 @@ namespace StudentServiceSystemAPI.Repositories
             group.Name = dto.Name;
             
             await this.context.SaveChangesAsync();
+        }
+
+        public async Task<List<SubjectsWithStudentsDto>> GetSubjectsWithStudentsWithMarks(int groupId)
+        {
+            var group = await this.context
+                .Groups
+                .Include(x => x.Schedule)
+                .ThenInclude(x => x.Subjects)
+                .ThenInclude(x => x.Marks)
+                .ThenInclude(x => x.Student)
+                .FirstOrDefaultAsync(x => x.GroupId == groupId);
+
+            var subjects = group.Schedule.Subjects;
+
+            var students = subjects.ToLookup(d => d.Name, x => mapper.Map<List<StudentWithMarksDto>>(x.Marks.Select(x => x.Student).Where(x => x.GroupId == groupId).Distinct().ToList()));
+     
+            var sub = new List<SubjectsWithStudentsDto>();
+
+            foreach (var subject in students)
+            {
+                var subjectIds = await this.context
+                    .Subjects
+                    .Where(x => x.Name == subject.Key)
+                    .Select(x => x.SubjectId)
+                    .ToListAsync();
+
+                if (subjectIds is null)
+                {
+                    throw new NullReferenceException("");
+                }     
+
+                foreach (var studentList in subject)
+                {
+                  
+                    foreach (var student in studentList)
+                    {
+                        var marks = new List<MarkDto>();
+                        foreach (var mark in student.Marks)
+                        {
+                            if (subjectIds.Contains((int)mark.SubjectId))
+                            {
+                                marks.Add(mark);
+                            }
+                        }
+
+                        student.Marks = marks;
+                    }
+
+                    if (studentList.Count != 0)
+                    {
+                        sub.Add(new SubjectsWithStudentsDto() { Name = subject.Key, Students = studentList });
+                    }
+                }
+            }
+
+            return sub;
         }
 
         private async Task<Department> GetDepartmentById(int departmentId)

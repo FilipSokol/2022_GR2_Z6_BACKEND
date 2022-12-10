@@ -1,5 +1,7 @@
-﻿using StudentServiceSystemAPI.DtoModels;
+﻿using Microsoft.AspNetCore.Mvc;
+using StudentServiceSystemAPI.DtoModels;
 using StudentServiceSystemAPI.Models;
+using System.Runtime.CompilerServices;
 
 namespace StudentServiceSystemAPI.Repositories
 {
@@ -11,6 +13,7 @@ namespace StudentServiceSystemAPI.Repositories
         Task RemoveAll(int departmentId);
         Task Remove(int departmentId, int groupId);
         Task Update(int departmentId, int groupId, UpdateGroupDto group);
+        Task<List<SubjectsWithStudentsDto>> GetSubjectsWithStudentsWithMarks(int groupId);
 
     }
 }
