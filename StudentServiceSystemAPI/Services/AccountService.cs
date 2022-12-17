@@ -144,13 +144,55 @@ namespace StudentServiceSystemAPI.Services
 
             var userRole = await this._context.Roles.FirstOrDefaultAsync(x => x.Name == role);
 
-
             if (userRole is null)
             {
                 throw new NullReferenceException($"User role {role} does not exist.");
             }
 
             user.RoleId = userRole.Id;
+
+            var student = await this._context
+                .Students
+                .FirstOrDefaultAsync(x => x.Email == user.Email);
+
+            var teacher = await this._context
+                .Teachers
+                .FirstOrDefaultAsync(x => x.Email == user.Email);
+
+            if (student is null && teacher is not null)
+            {
+                student = new Student()
+                {
+                    GroupId = 1,
+                    FirstName = teacher.FirstName,
+                    LastName = teacher.LastName,
+                    Email = teacher.Email,
+                    Marks = new List<Mark>()
+                };
+
+                await _context.Students.AddAsync(student);
+                _context.Teachers.Remove(teacher);
+            }
+
+            if (teacher is null && student is not null)
+            {
+                teacher = new Teacher()
+                {
+                    DepartmentId = 1,
+                    FirstName = student.FirstName,
+                    LastName = student.LastName,
+                    Email = student.Email,
+                    Subjects = new List<Subject>()
+                };
+
+                await _context.Teachers.AddAsync(teacher);
+                _context.Students.Remove(student);
+            }
+
+            if (teacher is null && student is null)
+            {
+                throw new InvalidOperationException("Either teacher and student are not exists.");
+            }
 
             await _context.SaveChangesAsync();
         }

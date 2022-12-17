@@ -102,5 +102,19 @@ namespace StudentServiceSystemAPI.Repositories
             subject.TeacherId = dto.TeacherId;
             await this.context.SaveChangesAsync();
         }
+
+        public async Task<List<SubjectDto>> GetSubjectsByTeacherId(int teacherId)
+        {
+            var subjects = await this.context
+                .Subjects
+                .Where(x => x.TeacherId == teacherId)
+                .ToListAsync();
+
+            if (subjects == null) throw new NullReferenceException("Subjects does not exist");
+
+            var subjectsDto = mapper.Map<List<SubjectDto>>(subjects);
+
+            return subjectsDto;
+        }
     }
 }

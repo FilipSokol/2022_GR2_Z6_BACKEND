@@ -22,7 +22,7 @@ namespace StudentServiceSystemAPI.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get Subject by id")]
-        public async Task<ActionResult<Subject>> GetById([FromRoute] int id)
+        public async Task<ActionResult<SubjectDto>> GetById([FromRoute] int id)
         {
             var subject = await this.subjectRepository.GetById(id);
 
@@ -32,7 +32,7 @@ namespace StudentServiceSystemAPI.Controllers
         }
         [HttpGet]
         [SwaggerOperation(Summary = "Get all subjects")]
-        public async Task<ActionResult<List<Subject>>> GetAll()
+        public async Task<ActionResult<List<SubjectDto>>> GetAll()
         {
             var subjects = await this.subjectRepository.GetAll();
 
@@ -51,24 +51,33 @@ namespace StudentServiceSystemAPI.Controllers
 
         [HttpPost]
         [SwaggerOperation(Summary = "Create subject")]
-        public async Task<ActionResult<int>> Create([FromBody]CreateSubjectDto dto)
+        public async Task<ActionResult<int>> Create([FromBody] CreateSubjectDto dto)
         {
             var id = await this.subjectRepository.Create(dto);
             return Created($"/api/department/{id}", null);
         }
+
         [HttpDelete("{id}")]
         [SwaggerOperation(Summary = "Delete subject")]
-        public async Task<ActionResult> Delete([FromRoute]int id)
+        public async Task<ActionResult> Delete([FromRoute] int id)
         {
             await this.subjectRepository.Delete(id);
             return NoContent();
         }
+
         [HttpPut("{id}")]
         [SwaggerOperation(Summary = "Update subject")]
-        public async Task<ActionResult> Update([FromRoute]int id, [FromBody]SubjectDto dto)
+        public async Task<ActionResult> Update([FromRoute] int id, [FromBody] SubjectDto dto)
         {
             await this.subjectRepository.Update(id, dto);
             return Ok();
+        }
+
+        [HttpGet("{teacherId}/teacher")]
+        public async Task<ActionResult<List<SubjectDto>>> GetSubjectsByTeacherId([FromRoute] int teacherId)
+        {
+            var subjects = await this.subjectRepository.GetSubjectsByTeacherId(teacherId);
+            return Ok(subjects);
         }
     }
 }
