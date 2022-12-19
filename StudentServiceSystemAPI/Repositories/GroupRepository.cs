@@ -74,7 +74,12 @@ namespace StudentServiceSystemAPI.Repositories
 
             if (group == null) throw new Exception("Group not found");
 
+            var schedule = await this.context.Schedules.FirstOrDefaultAsync(x => x.Id == group.GroupId);
+
+            if (schedule == null) throw new Exception("schedule not found");
+
             this.context.Remove(group);
+            this.context.Remove(schedule);
             await this.context.SaveChangesAsync();
         }
 
