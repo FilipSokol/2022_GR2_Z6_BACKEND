@@ -27,7 +27,16 @@ namespace StudentServiceSystemAPI.Repositories
 
             group.DepartmentId = departmentId;
 
+            var previousGroup = this.context.Groups.Max(x => x.GroupId);
+
+            var schedule = new Schedule()
+            {
+                GroupId = previousGroup + 1
+            };
+
+            await this.context.Schedules.AddAsync(schedule);
             await this.context.Groups.AddAsync(group);
+
             await this.context.SaveChangesAsync();
 
             return group.GroupId;
