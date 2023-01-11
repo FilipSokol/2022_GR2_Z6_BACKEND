@@ -1,4 +1,5 @@
-﻿using StudentServiceSystemAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using StudentServiceSystemAPI.Data;
 using StudentServiceSystemAPI.Entities;
 
 namespace StudentServiceSystemAPI
@@ -15,6 +16,13 @@ namespace StudentServiceSystemAPI
         {
             if (this.context.Database.CanConnect())
             {
+                var pendingMigrations = this.context.Database.GetPendingMigrations();
+
+                if (pendingMigrations != null && pendingMigrations.Any())
+                {
+                    this.context.Database.Migrate();
+                }
+
                 if (!this.context.Roles.Any())
                 {
                     var roles = GetRoles();

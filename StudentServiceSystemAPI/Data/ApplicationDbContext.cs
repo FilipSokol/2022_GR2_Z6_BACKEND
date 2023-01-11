@@ -1,12 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentServiceSystemAPI.Entities;
 using StudentServiceSystemAPI.Models;
+using System.Runtime.CompilerServices;
 
 namespace StudentServiceSystemAPI.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        private readonly string _connectionString = "Server=(localdb)\\mssqllocaldb;Database=StudentService;Trusted_Connection=True;";
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+
+        }
 
         public DbSet<Department> Departments { get; set; }
         public DbSet<Group> Groups { get; set; }
@@ -27,50 +31,39 @@ namespace StudentServiceSystemAPI.Data
                 .WithOne(g => g.Group)
                 .HasForeignKey<Schedule>(s => s.GroupId);
 
-            ////modelBuilder.Entity<Schedule>()
-            ////    .HasData(new[] {
-            ////    new Schedule {
-            ////        Id = 1
-            ////    } 
-            ////    });
-
             Initialize(modelBuilder);
 
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(_connectionString);
-        }
-
         public static void Initialize(ModelBuilder modelBuilder)
         {
+            
             modelBuilder.Entity<Department>().HasData(
                     new Department
                     {
                         DepartmentId = 1,
-                        Name = "Department1",
-                        Address = "Address1",
-                        City = "City 1",
-                        PostalCode = "PostalCode 1"
+                        Name = "Wydział Inżynierii Mechanicznej i Informatyki",
+                        Address = "Dąbrowskiego 64",
+                        City = "Częstochowa",
+                        PostalCode = "00-000"
 
                     },
                      new Department
                      {
                          DepartmentId = 2,
-                         Name = "Department2",
-                         Address = "Address2",
-                         City = "City 2",
-                         PostalCode = "PostalCode 2"
+                         Name = "Wydział Zarządzania",
+                         Address = "Armii Krajowej 2",
+                         City = "Częstochowa",
+                         PostalCode = "00-000"
 
                      },
                      new Department
                      {
                          DepartmentId = 3,
-                         Name = "Department3",
-                         Address = "Address3",
-                         City = "City 3",
-                         PostalCode = "PostalCode 3"
+                         Name = "Wydział Elektryczny",
+                         Address = "Armii Krajowej 14",
+                         City = "Częstochowa",
+                         PostalCode = "00-000"
 
                      }
                 );
@@ -79,19 +72,19 @@ namespace StudentServiceSystemAPI.Data
                     new Group
                     {
                         GroupId = 1,
-                        Name = "Group 1",
+                        Name = "Grupa 1",
                         DepartmentId = 1
                     },
                     new Group
                     {
                         GroupId = 2,
-                        Name = "Group 2",
+                        Name = "Grupa 2",
                         DepartmentId = 3
                     },
                     new Group
                     {
                         GroupId = 3,
-                        Name = "Group 3",
+                        Name = "Grupa 3",
                         DepartmentId = 2
                     }
 
@@ -169,6 +162,76 @@ namespace StudentServiceSystemAPI.Data
                 new Subject
                 {
                     SubjectId = 3,
+                    Description = "Computer Science subject",
+                    Name = "Computer Science",
+                    StartTime = DateTime.UtcNow,
+                    ScheduleId = 1,
+                    EndTime = DateTime.UtcNow,
+                    TeacherId = 3
+                },
+                new Subject
+                {
+                    SubjectId = 4,
+                    Description = "Computer Science subject",
+                    Name = "Computer Science",
+                    StartTime = DateTime.UtcNow.AddHours(1),
+                    ScheduleId = 1,
+                    EndTime = DateTime.UtcNow.AddHours(2),
+                    TeacherId = 3
+                },
+                 new Subject
+                {
+                    SubjectId = 5,
+                    Description = "Computer Science subject",
+                    Name = "Computer Science",
+                    StartTime = DateTime.UtcNow,
+                    ScheduleId = 1,
+                    EndTime = DateTime.UtcNow,
+                    TeacherId = 3
+                },
+                 new Subject
+                {
+                    SubjectId = 6,
+                    Description = "Computer Science subject",
+                    Name = "Computer Science",
+                    StartTime = DateTime.UtcNow,
+                    ScheduleId = 1,
+                    EndTime = DateTime.UtcNow,
+                    TeacherId = 3
+                },
+                 new Subject
+                {
+                    SubjectId = 7,
+                    Description = "Computer Science subject",
+                    Name = "Computer Science",
+                    StartTime = DateTime.UtcNow,
+                    ScheduleId = 1,
+                    EndTime = DateTime.UtcNow,
+                    TeacherId = 3
+                },
+                 new Subject
+                {
+                    SubjectId = 8,
+                    Description = "Computer Science subject",
+                    Name = "Computer Science",
+                    StartTime = DateTime.UtcNow,
+                    ScheduleId = 1,
+                    EndTime = DateTime.UtcNow,
+                    TeacherId = 3
+                },
+                 new Subject
+                {
+                    SubjectId = 9,
+                    Description = "Computer Science subject",
+                    Name = "Computer Science",
+                    StartTime = DateTime.UtcNow,
+                    ScheduleId = 1,
+                    EndTime = DateTime.UtcNow,
+                    TeacherId = 3
+                },
+                 new Subject
+                {
+                    SubjectId = 10,
                     Description = "Computer Science subject",
                     Name = "Computer Science",
                     StartTime = DateTime.UtcNow,
