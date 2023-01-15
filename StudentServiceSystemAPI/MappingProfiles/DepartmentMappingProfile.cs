@@ -42,6 +42,11 @@ namespace StudentServiceSystemAPI.MappingProfiles
             CreateMap<ILookup<string, List<StudentWithMarksDto>>, SubjectsWithStudentsDto>()
                 .ForMember(x => x.Name, c => c.MapFrom(dto => dto.Select(x => x.Key)))
                 .ForMember(x => x.Students, c => c.MapFrom(dto => dto.ToList()));
+
+            CreateMap<Subject, SubjectWithMarksDto>()
+                .ForMember(x => x.Name, c => c.MapFrom(x => x.Name))
+                .ForMember(x => x.Marks, c => c.MapFrom(dto => new List<int>()));
+
         }
     }
 }

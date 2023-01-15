@@ -60,10 +60,23 @@ namespace StudentServiceSystemAPI.Repositories
                 .ThenInclude(x => x.Subject)
                 .FirstOrDefaultAsync(x => x.StudentId == studentId);
 
+            if (student is null) throw new NullReferenceException("Student does not exist.");
+
+            var subjects = await this.context
+                .Subjects
+                .ToListAsync();
+
+            subjects = subjects.DistinctBy(x => x.Name).ToList();
+
+            var subjectsValues = mapper.Map<List<SubjectWithMarksDto>>(subjects);
 
             var marks = student.Marks.GroupBy(x => x.Subject.Name).ToList();
 
             var marksValues = mapper.Map<List<SubjectWithMarksDto>>(marks);
+
+            marksValues.AddRange(subjectsValues);
+
+            marksValues = marksValues.DistinctBy(x => x.Name).ToList();
             
             return marksValues;
         }

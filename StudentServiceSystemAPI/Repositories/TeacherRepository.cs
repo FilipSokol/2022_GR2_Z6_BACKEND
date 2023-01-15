@@ -23,10 +23,19 @@ namespace StudentServiceSystemAPI.Repositories
         public async Task<int> Create(int departmentId, CreateTeacherDto dto)
         {
             var department = await this.context.Departments.FirstOrDefaultAsync(x => x.DepartmentId == departmentId);
-
-            var teacher = this.mapper.Map<Teacher>(dto);     
-
+            
             if (department == null) throw new NullReferenceException("Department does not exist.");
+
+            var teacher = this.mapper.Map<Teacher>(dto);
+
+            var user = await this.context.Users.FirstOrDefaultAsync(x => x.Email == teacher.Email);
+
+            if (user is null)
+            {
+                throw new NullReferenceException($"User does not exist.");
+            }
+
+            user.RoleId = 2;
 
             department.Teachers = department.Teachers ?? new List<Teacher>();
 

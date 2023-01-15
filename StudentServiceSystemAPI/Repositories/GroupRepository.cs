@@ -114,13 +114,20 @@ namespace StudentServiceSystemAPI.Repositories
                 .ThenInclude(x => x.Student)
                 .FirstOrDefaultAsync(x => x.GroupId == groupId);
 
-            var subjects = group.Schedule.Subjects;
+            if (group is null) throw new NullReferenceException("Group does not exist.");
 
-            var students = subjects.ToLookup(d => d.Name, x => mapper.Map<List<StudentWithMarksDto>>(x.Marks.Select(x => x.Student).Where(x => x.GroupId == groupId).Distinct().ToList()));
+            var studentsList = await this.context
+                .Students
+                .Where(x => x.GroupId == group.GroupId)
+                .ToListAsync();
+
+           // var students = subjects.ToLookup(d => d.Name, x => mapper.Map<List<StudentWithMarksDto>>(x.Marks.Select(x => x.Student).Where(x => x.GroupId == groupId).Distinct().ToList()));
+            var subjects = group.Schedule.Subjects.ToLookup(d => d.Name, x => studentsList).Distinct().ToList();
      
+
             var sub = new List<SubjectsWithStudentsDto>();
 
-            foreach (var subject in students)
+            foreach (var subject in subjects)
             {
                 var subjectIds = await this.context
                     .Subjects
@@ -131,29 +138,37 @@ namespace StudentServiceSystemAPI.Repositories
                 if (subjectIds is null)
                 {
                     throw new NullReferenceException("");
-                }     
+                }
 
-                foreach (var studentList in subject)
+                var students = subject.Distinct();
+
+                foreach (var studentList in students)
                 {
-                  
+                    var studentss = studentList.DistinctBy(x => x.StudentId).ToList();
+
+                    var studentsWithMarks = new List<StudentWithMarksDto>();
                     foreach (var student in studentList)
                     {
                         var marks = new List<MarkDto>();
-                        foreach (var mark in student.Marks)
+                        if (student.Marks is not null)
                         {
-                            if (subjectIds.Contains((int)mark.SubjectId))
+                            foreach (var mark in student.Marks)
                             {
-                                marks.Add(mark);
+                                if (subjectIds.Contains((int)mark.SubjectId))
+                                {
+                                    marks.Add(mapper.Map<MarkDto>(mark));
+                                }
                             }
+
                         }
-
-                        student.Marks = marks;
+                      
+                        student.Marks = mapper.Map<List<Mark>>(marks);
+                        studentsWithMarks.Add(mapper.Map<StudentWithMarksDto>(student));
+                        
                     }
 
-                    if (studentList.Count != 0)
-                    {
-                        sub.Add(new SubjectsWithStudentsDto() { Name = subject.Key, Students = studentList });
-                    }
+                    sub.Add(new SubjectsWithStudentsDto() { Name = subject.Key, Students = studentsWithMarks });
+                    
                 }
             }
 
