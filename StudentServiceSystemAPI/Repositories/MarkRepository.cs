@@ -24,7 +24,7 @@ namespace StudentServiceSystemAPI.Repositories
         {
             var mark = this.mapper.Map<Mark>(dto);
             mark.StudentId = studentId;
-
+            
             await this.context.Marks.AddAsync(mark);
             await this.context.SaveChangesAsync();
 

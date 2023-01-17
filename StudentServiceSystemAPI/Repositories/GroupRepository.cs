@@ -118,6 +118,7 @@ namespace StudentServiceSystemAPI.Repositories
 
             var studentsList = await this.context
                 .Students
+                .Include(x => x.Marks)
                 .Where(x => x.GroupId == group.GroupId)
                 .ToListAsync();
 
@@ -161,13 +162,16 @@ namespace StudentServiceSystemAPI.Repositories
                             }
 
                         }
-                      
-                        student.Marks = mapper.Map<List<Mark>>(marks);
-                        studentsWithMarks.Add(mapper.Map<StudentWithMarksDto>(student));
+
+                        var studentToAdd = (Student)student.Clone();
+
+                        studentToAdd.Marks = mapper.Map<List<Mark>>(marks);
+
+                        studentsWithMarks.Add(mapper.Map<StudentWithMarksDto>(studentToAdd));
                         
                     }
 
-                    sub.Add(new SubjectsWithStudentsDto() { Name = subject.Key, Students = studentsWithMarks });
+                    sub.Add(new SubjectsWithStudentsDto() { Name = subject.Key, SubjectId = subjectIds.FirstOrDefault(), Students = studentsWithMarks });
                     
                 }
             }

@@ -6,6 +6,7 @@ namespace StudentServiceSystemAPI.DtoModels
     {
         public string Name { get; set; }
 
+        public int SubjectId { get; set; }
         public List<StudentWithMarksDto> Students { get; set; }
     }
 }
